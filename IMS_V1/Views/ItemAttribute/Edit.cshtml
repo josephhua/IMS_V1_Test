@@ -1,0 +1,120 @@
+﻿@model IMS_V1.ItemAttribute
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<script type="text/javascript">
+    $(document).unbind('keydown').bind('keydown', function (event) {
+        var doPrevent = false;
+        if (event.keyCode === 8) {
+            var d = event.srcElement || event.target;
+            if ((d.tagName.toUpperCase() === 'INPUT' &&
+                (
+                    d.type.toUpperCase() === 'TEXT' ||
+                    d.type.toUpperCase() === 'PASSWORD' ||
+                    d.type.toUpperCase() === 'FILE' ||
+                    d.type.toUpperCase() === 'SEARCH' ||
+                    d.type.toUpperCase() === 'EMAIL' ||
+                    d.type.toUpperCase() === 'NUMBER' ||
+                    d.type.toUpperCase() === 'DATE')
+            ) ||
+                d.tagName.toUpperCase() === 'TEXTAREA') {
+                doPrevent = d.readOnly || d.disabled;
+            }
+            else {
+                doPrevent = true;
+            }
+        }
+        if (doPrevent) {
+            event.preventDefault();
+        }
+    });
+    $(document).ready(function () {
+
+        var changeAttribute = $("#ddlAttributes").change(function () {
+            var AttributeLookup_Id = $(this).val();
+            $.getJSON("../LoadAttributeInfo", { Aid: AttributeLookup_Id },
+                function (AttributeData) {
+                    $("#APlusValue").val(AttributeData.APlusAttributeValue);
+                    $("#DefaultValue").val(AttributeData.DefaultActualValue);
+                }).fail(function (xhr, textStatus, errorThrown) { alert(xhr.responseText); });
+        });
+    });
+</script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+                    <table>
+                        <tr>
+                            <td colspan="2" style="text-align:left">
+                                <b>Item Number:</b> @ViewBag.Itm_num
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align:left">
+                                <b>Item Description:</b> @ViewBag.ItemDescription
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align:left">
+                                @Html.HiddenFor(model => model.ItemAttribute_Id)
+                                @Html.HiddenFor(model => model.Item_Id)
+                                Attribute Type: @ViewBag.AttributeType
+                                <input type="hidden" name="hdnAttributeTypeId" id="hdnAttributeTypeId" value="@ViewBag.AttributeType_Id" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Website Attribute Value:
+                            </td>
+                            <td colspan="2" style="text-align:left" class="textbox">
+                                @Html.DropDownList("AttributeLookup_Id", (IEnumerable<SelectListItem>)ViewBag.AttributeLookup, "- - - S E L E C T - - -", new { id = "ddlAttributes", style = "width:350px;" })
+                            </td>
+                        </tr>
+                        <!--        <tr>
+                                    <td>
+                                        APlus Attribute Value:
+                                    </td>
+                                    <td colspan="2" style="text-align:left" class="textbox">
+                                       @*Html.TextBox("APlusValue","",  new { @readonly = "readonly", style = "width:120px;", @Value = ViewBag.APlusValue})*@
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Default Attribute Value:
+                                    </td>
+                                    <td colspan="2" style="text-align:left" class="textbox">
+                                       @*Html.TextBox("DefaultValue","",  new { @readonly = "readonly", style = "width:120px;", @Value = ViewBag.DefaultValue})*@
+                                    </td>
+                                </tr>-->
+                        <tr>
+                            <td>
+                                Actual Attribute Value:
+                            </td>
+                            <td class="textbox">
+                                @Html.EditorFor(model => model.ActualAttributeValue)
+                                @Html.ValidationMessageFor(model => model.ActualAttributeValue)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center">
+                                <input type="submit" value="Save" />
+                            </td>
+                        </tr>
+
+                    </table>
+
+                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index", new { id = Model.Item_Id })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

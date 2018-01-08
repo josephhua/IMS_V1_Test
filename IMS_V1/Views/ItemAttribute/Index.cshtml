@@ -1,0 +1,251 @@
+﻿@model IEnumerable<IMS_V1.ItemAttribute>
+
+@{
+    ViewBag.Title = "Attribute List";
+}
+
+<table style="width:1000px">
+    <tr>
+        <td colspan="3" style="text-align:center">
+            <h2>Attribute List</h2>
+        </td>
+        <!--<td></td>-->
+    </tr>
+    @using (Html.BeginForm("SaveDescription", "ItemAttribute", new { id = ViewBag.Item_Id }, FormMethod.Post))
+    {
+        <tr>
+            <td colspan="3" style="text-align:left">
+                <b>Item Number:</b> @ViewBag.Itm_num
+                <br />
+                @Html.ValidationSummary(true)
+                @if (ViewBag.CategoryClass == "N")
+                {
+                    <b>Item Description:</b> <input type="text" style="width:450px;" name="txtItemDescription" id="txtItemDescription" value="@ViewBag.ItemDescription" />
+                    if (ViewBag.ItemDescriptionError != null && ViewBag.ItemDescriptionError.Trim().Length > 0)
+                    {
+                        <br /><span style="color:red;">@ViewBag.ItemDescriptionError</span>
+                    }
+                    <!--        if (int.Parse(Session.Contents["UserTypeID"].ToString()) != 6){
+                                <input type="submit" value="Save" /> <br />
+                            }else{
+                                if(ViewBag.Printed != "Y"){
+                                <input type="submit" value="Save" /> <br />
+                                }
+                            }-->
+                    <br />
+
+                    <Desc1>@ViewBag.APlusDesc1</Desc1> <Desc2>@ViewBag.APlusDesc2</Desc2>
+                    <br />
+                    <br /> <b>Storefront Item Description:</b>
+                    <textarea style="width:1000px; height:75px; " readonly name="txtSFItemDescription" id="txtSFItemDescription">
+                @ViewBag.SFItemDescription
+            </textarea>
+
+                }
+                else
+                {
+                    <b>Item Description:</b> @ViewBag.ItemDescription<br />
+                    if (ViewBag.ItemDescriptionError != null && ViewBag.ItemDescriptionError.Trim().Length > 0)
+                    {
+                        <span style="color:red;">@ViewBag.ItemDescriptionError</span><br />
+                    }
+                    <Desc1>@ViewBag.APlusDesc1</Desc1> <Desc2>@ViewBag.APlusDesc2</Desc2>
+                    <br />
+                    <br /> <b>Storefront Item Description:</b> @ViewBag.SFItemDescription
+                                    }
+                <!--}-->
+            </td>
+        </tr>
+        if (ViewBag.RemainingAttributeTypes.Count != 0)
+        {
+            <!--    <tr>
+                    <td colspan="2" style="text-align:right">
+                            <b>Bold</b> items are required.
+                    </td>
+                    <td></td>
+                </tr>-->
+
+            <tr>
+                <td colspan="2" style="vertical-align:central; text-align:right">
+                    <br />
+                    <br />
+                    <br />
+                    The Remaining Attributes must be added before Item can be approved for setup:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!--        </td>
+                            <td style="text-align:left">-->
+                    @foreach (var rat in ViewBag.RemainingAttributeTypes)
+                    {
+
+                        if (rat.Required)
+                        {
+                            <b> @rat.AttributeType </b><br />
+                        }
+                        else
+                        {
+                            @rat.AttributeType <br />
+                        }
+
+                    }
+                </td>
+                <td style="text-align:left; vertical-align:top">
+                    <br />
+                    <br />
+                    <br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;(<b>Bold</b> items are required.)
+                </td>
+            </tr>
+        }
+        <!--using (Html.BeginForm("SaveRFA_FastTrack", "ItemAttribute", new { id = ViewBag.Item_Id }, FormMethod.Post))
+        {-->
+        <!--Html.ValidationSummary(true)-->
+
+        <tr>
+
+
+
+            <!--if (int.Parse(Session.Contents["UserTypeID"].ToString()) != 6){
+                <input type="submit" value="Save" /> <br />
+            }else{
+                if(ViewBag.Printed != "Y"){
+                <input type="submit" value="Save" /> <br />
+                }
+            }-->
+
+
+            @if (ViewBag.AllRequired == 0 && (int.Parse(Session.Contents["UserTypeID"].ToString()) != 6))
+            {
+                <td class="textbox" style="text-align:center">
+                    Ready For Approval:
+                    <input type="checkbox" name="chkReadyForApproval" id="chkReadyForApproval" @(ViewBag.ReadyForApproval == "Y" ? "checked='checked'" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+            }
+
+            @if (int.Parse(Session.Contents["UserTypeID"].ToString()) != 6)
+            {
+                <td class="textbox" style="text-align:center">
+                    Fast Track:
+                    <input type="checkbox" name="chkFastTrack" id="chkFastTrack" @(ViewBag.FastTrack == "Y" ? "checked='checked'" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+            }
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Company:
+            </td>
+            <td class="textbox" colspan="2">
+                @Html.DropDownList("Company99", (IEnumerable<SelectListItem>)ViewBag.Company99_List, "- - - S E L E C T - - -")
+                <span style="color:red;">Select 99 to HIDE ITEM in APLUS.</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="3" style="text-align:center;">
+                @if (ViewBag.Printed != "Y")
+                {
+                    <input type="submit" value="Save" />
+                }
+            </td>
+        </tr>
+
+
+
+
+
+        <!--        if (ViewBag.AllRequired == 0)
+                    {
+                    <td class="textbox" style="text-align:center">
+                        Ready For Approval:
+                        <input type="checkbox" name="chkReadyForApproval" id="chkReadyForApproval" (ViewBag.ReadyForApproval == "Y" ? "checked='checked'" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    }
+
+                    <td class="textbox" style="text-align:center">
+                        Fast Track:
+                        <input type="checkbox" name="chkFastTrack" id="chkFastTrack" (ViewBag.FastTrack == "Y" ? "checked='checked'" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="submit" value="Save" />
+                    </td>-->
+
+    }
+
+</table>
+
+
+<p>
+    @Html.ActionLink("Add New Attribute", "Create", new { item_id = ViewBag.Item_Id })
+
+
+</p>
+
+<table style="width:1000px">
+    <tr>
+        <td colspan="5">
+            @if (int.Parse(Session.Contents["UserTypeID"].ToString()) != 6)
+            {
+                @Html.ActionLink("Back to Item", "Edit", "Item", new { id = ViewBag.Item_Id }, null)
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Back to Item", "VendorEdit", "Item", new { id = ViewBag.Item_Id }, null)
+                                            }
+            @if (int.Parse(Session.Contents["UserTypeID"].ToString()) == 7 || int.Parse(Session.Contents["UserTypeID"].ToString()) == 8 || int.Parse(Session.Contents["UserTypeID"].ToString()) == 1)
+            {
+                @Html.ActionLink("Text Attachment", "Index", "ItemTextAttachment", new { itemid = ViewBag.Item_Id }, null)
+                            }
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Attribute Type
+        </th>
+        <th>
+            Aplus Value
+        </th>
+        <th>
+            Website Value
+        </th>
+        <th>
+            ActualAttributeValue
+        </th>
+        <th>
+        <th></th>
+    </tr>
+    @{var bkc = "whitesmoke";}
+    @foreach (var item in Model)
+    {
+        if (bkc == "whitesmoke")
+        {
+            bkc = "white";
+        }
+        else
+        {
+            bkc = "whitesmoke";
+        }
+        <tr style="background-color:@bkc;">
+            <td class="display1">
+                @Html.ActionLink(item.Attribute_Lookup.AttributeType.AttributeType1.ToString(), "Edit", new { attributeName = item.Attribute_Lookup.AttributeType.AttributeType1, id = item.ItemAttribute_Id })
+            </td>
+            <td class="display1">
+                @Html.DisplayFor(modelItem => item.Attribute_Lookup.APlusAttributeValue)
+            </td>
+            <td class="display1">
+                @Html.DisplayFor(modelItem => item.Attribute_Lookup.WebsiteAttributeValue)
+            </td>
+            <td class="display1">
+                @Html.DisplayFor(modelItem => item.ActualAttributeValue)
+            </td>
+            <td style="font-size:.70em">
+                @Html.ActionLink("Edit", "Edit", new { attributeName = item.Attribute_Lookup.AttributeType.AttributeType1, id = item.ItemAttribute_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { attributeName = item.Attribute_Lookup.AttributeType.AttributeType1, id = item.ItemAttribute_Id })
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="100" style="text-align:center">
+            @Html.ActionLink("Back to List", "Index", "Item")
+        </td>
+    </tr>
+
+
+</table>

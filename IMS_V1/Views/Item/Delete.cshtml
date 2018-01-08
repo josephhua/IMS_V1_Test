@@ -1,0 +1,319 @@
+﻿@model IMS_V1.Item
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<table>
+    <tr>
+        <td style="text-align:left; vertical-align:bottom; font-size:1.5em">
+            Are you sure you want to delete this?&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align:left; vertical-align:bottom">
+            @using (Html.BeginForm())
+            {<input type="submit" value="Delete" />}
+
+        </td>
+    </tr>
+</table>
+
+
+
+<table>
+
+    <tr>
+        <td>
+            <div class="lblblue">
+                @Html.HiddenFor(model => model.Item_id)
+            </div>
+            @Html.DisplayNameFor(model => model.Itm_Num):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Itm_Num)
+
+        </td>
+        <td colspan="2"></td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.ManufacturerLogo_Id):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(v => v.zManufacturersLogo.APlusVendorName)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            Vendor Number:
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(v1 => v1.zManufacturersLogo.VendorNumber)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            Vendor Abbreviation:
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(v2 => v2.zManufacturersLogo.Abbrev)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Item_Description):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Item_Description)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SF_Item_Description):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.SF_Item_Description)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.MFG_Number):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.MFG_Number)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.UM_Id):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(u => u.UM_Lookup.UM_Description)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.MSRP):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.MSRP)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Level3):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Level3)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Level1):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Level1)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.JSCLevel5):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.JSCLevel5)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Level2):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Level2)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Qty_Break):
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Qty_Break)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Qty_BreakPrice):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Qty_BreakPrice)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.CategoryClass_Id):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(c => c.CategoryClass.Category_Id) - @Html.DisplayFor(c => c.CategoryClass.CategoryName)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubClassCode_Id):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(sc => sc.SubClass.SubClassCode_Id) - @Html.DisplayFor(sc => sc.SubClass.SubClassName)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.FineLineCode_Id):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(fl => fl.FineLineClass.FineLineCode_Id) - @Html.DisplayFor(fl => fl.FineLineClass.FinelineName)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.WebCode.WebCodeDescription):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.WebCode.WebCodeDescription)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.MIN):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.MIN)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Freight_Id):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(f => f.Freight_Lookup.Freight_ItemClass)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.VICost):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.VICost)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Plan_YN):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Plan_YN)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Haz):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Haz)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.ABC_Id):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(ab => ab.ABC_Lookup.ABC_Description)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.UPC):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.UPC)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.DS):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.DS)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Buyer):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.Buyer)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.STD):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.STD)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            Ware Houses:
+        </td>
+        <td colspan="3" class="textbox">
+            @*
+                @if (ViewBag.WareHousesList != null)
+                {
+                     foreach (var wh in ViewBag.WareHousesList)
+                     {
+
+                         <input id="available-item-@wh.Value"
+                                name="WareHouses"
+                                type="checkbox"
+                                value="@wh.Value"
+                                data-text="@wh.Text"
+                                @(wh.Selected == true ? "checked=checked" : "")>
+                         <span style="color:black">@wh.Text</span>
+
+                     }
+                 }
+            *@
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Exclusive):
+        </td>
+        <td colspan="3" class="textbox">
+            @Html.DisplayFor(model => model.Exclusive)
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @Html.DisplayNameFor(model => model.Allocated):
+            @Html.DisplayFor(model => model.Allocated)
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @Html.DisplayNameFor(model => model.DropShip):
+            @Html.DisplayFor(model => model.DropShip)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.CreatedBy):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.CreatedDate):
+        </td>
+        <td class="textbox">
+            @Html.DisplayFor(model => model.CreatedDate)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align:center">
+            @Html.ActionLink("Back to List", "Index")
+        </td>
+    </tr>
+</table>

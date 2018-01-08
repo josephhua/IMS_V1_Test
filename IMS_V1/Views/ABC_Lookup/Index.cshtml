@@ -1,0 +1,53 @@
+﻿@model IEnumerable<IMS_V1.ABC_Lookup>
+
+@{
+    ViewBag.Title = "ABC Codes";
+}
+
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="3" style="text-align:center;">
+            <h2>ABC Codes</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3" style="text-align:left;">
+            @Html.ActionLink("Create New ABC Code", "Create")
+        </td>
+    </tr>
+    <tr>
+        <th>
+            ABC Code
+        </th>
+        <th>
+            ABC Description
+        </th>
+        <th>
+            Enabled
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.ABC_Code)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.ABC_Description)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ABC_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ABC_Id })
+            </td>
+        </tr>
+    }
+
+</table>

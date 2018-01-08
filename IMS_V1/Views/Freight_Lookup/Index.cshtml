@@ -1,0 +1,92 @@
+﻿@model IEnumerable<IMS_V1.Freight_Lookup>
+
+@{
+    ViewBag.Title = "Freight";
+}
+
+
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="7" style="text-align:center;">
+            <h2>Freight</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="7" style="text-align:left;">
+            @Html.ActionLink("Create New Freight Code", "Create")
+        </td>
+    </tr>
+    <tr>
+        <th colspan="2" style="text-align:right;">
+            Class
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+        <th>
+            NMFC
+        </th>
+        <th colspan="2">
+        </th>
+    </tr>
+    <tr>
+        <th>
+            APlus
+        </th>
+        <th>
+            Dot
+        </th>
+        <th>
+            Item
+        </th>
+        <th>
+            Commodity
+        </th>
+        <th>
+            Item Number
+        </th>
+        <th>
+            Hazard
+        </th>
+        <th>
+            Enabled
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.Freight_APlusClass)
+            </td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.Freight_DotClass)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.Freight_ItemClass)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.Freight_Commodity)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.Freight_NMFCItemNumber)
+            </td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.Freight_Hazard)
+            </td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Freight_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Freight_Id })
+            </td>
+        </tr>
+    }
+
+</table>

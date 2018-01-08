@@ -1,0 +1,315 @@
+﻿@model IMS_V1.Item
+
+@{
+    ViewBag.Title = "Details";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<table>
+    <tr>
+        <td style="text-align:left;">
+            <b>Buyer:</b>@Html.DisplayFor(model => model.Buyer)
+            <br />
+            @ViewBag.Item_Id
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:left;">
+            <b>Vendor:</b>@Html.DisplayFor(model => model.zManufacturersLogo.WebVendorName) - @Html.DisplayFor(model => model.zManufacturersLogo.VendorNumber)
+        </td>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <td colspan="16" style="text-align:left;">
+            Item File Maintenance
+        </td>
+    </tr>
+    <tr>
+        <td style="border:solid;font-family:Verdana;font-size:smaller;">
+            <b>Item #</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller;">
+            <b>Abbr</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller;">
+            <b>Description(Max 27 Spaces)</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>MFG Number</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller;text-align:center;">
+            <b>UM</b>
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>Retail<br />(MSRP)</b>
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>Level 1</b>
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>Level 2</b>
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>Level 3</b>
+        </td>
+        <td style="border-bottom:solid; border-left:solid; border-right:double; border-top:solid; text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>JSC Level 5</b>
+        </td>
+        <td></td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>Class</b>
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>Sub</b>
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>Cat/Web<br />Code</b>
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>Frieght<br />Class</b>
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            <b>FL</b>
+        </td>
+
+    </tr>
+    <tr>
+        <td style="border:solid;text-align:left;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.Itm_Num)
+        </td>
+        <td style="border:solid;text-align:left;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.zManufacturersLogo.Abbrev)
+        </td>
+        <td style="border:solid;text-align:left;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.APlusDescription1) |--|<br /> @Html.DisplayFor(model => model.APlusDescription2)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.MFG_Number)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.UM_Lookup.UM_Code)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.MSRP)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.Level1)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.Level2)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.Level3)
+        </td>
+        <td style="border-bottom:solid; border-left:solid; border-right:double; border-top:solid; text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.JSCLevel5)
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.CategoryClass.Category_Id)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.SubClass.SubClass_Id)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.WebCode.WebCode1)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.Freight_Lookup.Freight_APlusClass)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.FineLineClass.FineLine_Id)
+        </td>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <td colspan="6" style="text-align:left;">
+            A & D Book Item File Maintenance
+        </td>
+    </tr>
+    <tr>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>FFL Type</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>Caliber</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>Gauge</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>Model</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>Manufacturer Name</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>Mfg. Import Name</b>
+        </td>
+    </tr>
+    <tr>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller; ">
+            @Html.DisplayFor(model => model.FFLType)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller; ">
+            @Html.DisplayFor(model => model.FFLCaliber)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller; ">
+            @Html.DisplayFor(model => model.FFLGauge)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller; ">
+            @Html.DisplayFor(model => model.FFLModel)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller; ">
+            @Html.DisplayFor(model => model.FFLMFGName)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller; ">
+            @Html.DisplayFor(model => model.FFLMFGImportName)
+        </td>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <td colspan="3" style="text-align:left;">
+            Balance File Maintenance
+        </td>
+    </tr>
+    <tr>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>Plan Y/N</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>ABC</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>D/S</b>
+        </td>
+    </tr>
+    <tr>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.Plan_YN)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.ABC_Lookup.ABC_Code)
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @Html.DisplayFor(model => model.DS)
+        </td>
+    </tr>
+</table>
+
+<table border="1">
+    <tr>
+        <td colspan="6" style="text-align:left;">
+            Warehouses
+        </td>
+    </tr>
+    <tr>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>01:Chapin</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>08:Reno</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>10:Pittson</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>12:Simmons</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>15:Outdoor</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>15:Newberry</b>
+        </td>
+    </tr>
+    <tr>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @if (ViewBag.Chapin != "0")
+            {
+                <b>X</b>
+            }
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @if (ViewBag.Reno != "0")
+            {
+                <b>X</b>
+            }
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @if (ViewBag.Pittson != "0")
+            {
+                <b>X</b>
+            }
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @if (ViewBag.Simmons != "0")
+            {
+                <b>X</b>
+            }
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @if (ViewBag.OSHI != "0")
+            {
+                <b>X</b>
+            }
+        </td>
+        <td style="border:solid;text-align:center;font-family:Verdana;font-size:smaller;">
+            @if (ViewBag.NewBerry != "0")
+            {
+                <b>X</b>
+            }
+        </td>
+    </tr>
+</table>
+
+<table border="1">
+    <tr>
+        <td colspan="4" style="text-align:left;">
+            Vendor/Item File
+        </td>
+    </tr>
+    <tr>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>STD</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>Min</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>Haz Y/N CC CS</b>
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            <b>UPC#</b>
+        </td>
+    </tr>
+    <tr>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            @Html.DisplayFor(model => model.STD)
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            @Html.DisplayFor(model => model.MIN)
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            @Html.DisplayFor(model => model.Haz)
+        </td>
+        <td style="border:solid;font-family:Verdana;font-size:smaller; text-align:center;">
+            @Html.DisplayFor(model => model.UPC)
+        </td>
+    </tr>
+</table>
+
+
+@using (Html.BeginForm("NextItem", "APlusEntry", new { id = ViewBag.Item_Id }, FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+                    <input type="submit" style="width:50px;" name="btnSubmit" id="btnSubmit" value="Next Item" />
+                }

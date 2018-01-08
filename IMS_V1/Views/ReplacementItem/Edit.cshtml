@@ -1,0 +1,45 @@
+﻿@model IMS_V1.ReplacementItem
+<center>
+    <div class="modal-header">
+        @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+        <h3 class="modal-title" id="myModalLabel">Edit Replacement Item</h3>
+    </div>
+    <br />
+    @using (Html.BeginForm())
+    {
+        <div class="modal-body">
+
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ItmId)
+
+                <div class="form-group">
+                    <p style="color: black">Existing Item Number</p>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.existingItm_Num, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.existingItm_Num, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <p style="color: black">Replacement Code</p>
+                    <div class="col-md-8">
+                        @Html.DropDownList("replacementCode", (IEnumerable<SelectListItem>)ViewBag.ReplacementCodes, "- - - S E L E C T - - -")
+                        <br />
+                        @Html.ValidationMessageFor(model => model.replacementCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            @*<button class="btn" type="button" data-dismiss="modal">Cancel</button>*@
+            <input class="btn btn-primary" type="submit" value="Save" style="margin-top: 10px" />
+        </div>
+        <br />
+        <br />
+
+    }
+
+</center>
+@Html.ActionLink("Back to Replacement List", "Index", new { id = Model.ItmId })

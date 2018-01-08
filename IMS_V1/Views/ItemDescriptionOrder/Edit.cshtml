@@ -1,0 +1,189 @@
+﻿@model IMS_V1.ItemDescriptionOrder
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<script type="text/javascript">
+    $(document).unbind('keydown').bind('keydown', function (event) {
+        var doPrevent = false;
+        if (event.keyCode === 8) {
+            var d = event.srcElement || event.target;
+            if ((d.tagName.toUpperCase() === 'INPUT' &&
+                 (
+                     d.type.toUpperCase() === 'TEXT' ||
+                     d.type.toUpperCase() === 'PASSWORD' ||
+                     d.type.toUpperCase() === 'FILE' ||
+                     d.type.toUpperCase() === 'SEARCH' ||
+                     d.type.toUpperCase() === 'EMAIL' ||
+                     d.type.toUpperCase() === 'NUMBER' ||
+                     d.type.toUpperCase() === 'DATE')
+                 ) ||
+                 d.tagName.toUpperCase() === 'TEXTAREA') {
+                doPrevent = d.readOnly || d.disabled;
+            }
+            else {
+                doPrevent = true;
+            }
+        }
+        if (doPrevent) {
+            event.preventDefault();
+        }
+    });
+    $(document).ready(function () {
+        $("#ddlCategory").change(function () {
+            var categoryclassId = $(this).val();
+            $.getJSON("../Item/LoadSubClassesByCategoryId", { categoryclassid: categoryclassId },
+            function (SubClassData) {
+                var select = $("#ddlSubClasses");
+                select.empty();
+                select.append($('<option/>', {
+                    value: 0,
+                    text: "Select a SubClass"
+                }));
+                $.each(SubClassData, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+        });
+        $("#ddlSubClasses").change(function () {
+            var subclassId = $(this).val();
+            var categoryId = $("#ddlCategory").val();
+            $.getJSON("../Item/LoadFineLineClassesByCateogryIdSubClassId", { categoryclassid: categoryId, subclasscodeid: subclassId },
+                   function (FineLineData) {
+                       var select = $("#ddlFineLine");
+                       select.empty();
+                       select.append($('<option/>', {
+                           value: 0,
+                           text: "Select a FineLine"
+                       }));
+                       $.each(FineLineData, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
+        });
+    });
+    $(document).keypress(function (event) {
+        if (event.keyCode == "13") {
+            event.preventDefault()
+            return false;
+        }
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+                    <br />
+                    <br />
+                    <table>
+                        <tr>
+                            <td colspan="2" style="text-align:center;">
+                                <h2>New Item Description Order</h2>
+                                <div class="editor-label">
+                                    @Html.HiddenFor(model => model.ItemDescriptionOrder_Id)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="editor-label">
+                                    Category:
+                                </div>
+                            </td>
+                            <td class="textbox">
+                                @Html.DropDownList("CategoryClass_Id", (IEnumerable<SelectListItem>)ViewBag.CategoryClass, "- - - S E L E C T - - -", new { id = "ddlCategory", style = "width:350px;" })
+                        </tr>
+                        <tr>
+                            <td>
+                                SubClass:
+                            </td>
+                            <td class="textbox">
+                                @Html.DropDownList("SubClassCode_Id", (IEnumerable<SelectListItem>)ViewBag.SubClass, "- - - S E L E C T - - -", new { id = "ddlSubClasses", style = "width:350px;" })
+                            </td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                FineLine:
+                            </td>
+                            <td class="textbox">
+                                @Html.DropDownList("FineLineCode_Id", (IEnumerable<SelectListItem>)ViewBag.FineLineClass, "- - - S E L E C T - - -", new { id = "ddlFineLine", style = "width:350px;" })
+                            </td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="editor-label">
+                                    Attribute Type:
+                                </div>
+                            </td>
+                            <td style="text-align:left;">
+                                <div class="editor-field">
+                                    @Html.DropDownList("AttributeType_Id", String.Empty)
+                                    @Html.ValidationMessageFor(model => model.AttributeType_Id)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="editor-label">
+                                    Description:
+                                </div>
+                            </td>
+                            <td style="text-align:left;">
+                                <div class="editor-field">
+                                    @Html.DropDownList("DescriptionField", String.Empty)
+                                    @Html.ValidationMessageFor(model => model.DescriptionField)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="editor-label">
+                                    System Type:
+                                </div>
+                            </td>
+                            <td style="text-align:left;">
+                                <div class="editor-field">
+                                    @Html.DropDownList("SystemType", String.Empty)
+                                    @Html.ValidationMessageFor(model => model.SystemType)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="editor-label">
+                                    Order Number:
+                                </div>
+                            </td>
+                            <td style="text-align:left;">
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.OrderNumber)
+                                    @Html.ValidationMessageFor(model => model.OrderNumber)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center;" colspan="2">
+                                <input type="submit" value="Save" />
+                            </td>
+                        </tr>
+                    </table>
+                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

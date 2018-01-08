@@ -1,0 +1,32 @@
+﻿@{
+    //ViewBag.Title = " ";
+}
+<noscript>
+    <style>
+        html {
+            display: none;
+        }
+    </style>
+    <meta http-equiv="refresh" content="0.0;url=hello.htm">
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107388438-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-107388438-1');
+</script>
+
+@section featured {
+    <div id="body">
+        <section class="content-wrapper main-content clear-fix">
+            <br />
+            <br />
+            <br />
+            <br />
+            <h2>@ViewBag.Message</h2>
+        </section>
+    </div>
+
+}

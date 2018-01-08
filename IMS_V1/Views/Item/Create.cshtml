@@ -1,0 +1,1152 @@
+﻿@model IMS_V1.Item
+
+
+@{
+    ViewBag.Title = "Add New Item";
+}
+
+<noscript>
+    For full functionality of this site it is necessary to enable JavaScript.
+    Here are the <a href="http://www.enable-javascript.com/" target="_blank">
+        instructions how to enable JavaScript in your web browser
+    </a>.
+</noscript>
+
+<script type="text/javascript">
+    $(document).unbind('keydown').bind('keydown', function (event) {
+        var doPrevent = false;
+        if (event.keyCode === 8) {
+            var d = event.srcElement || event.target;
+            if ((d.tagName.toUpperCase() === 'INPUT' &&
+                (
+                    d.type.toUpperCase() === 'TEXT' ||
+                    d.type.toUpperCase() === 'PASSWORD' ||
+                    d.type.toUpperCase() === 'FILE' ||
+                    d.type.toUpperCase() === 'SEARCH' ||
+                    d.type.toUpperCase() === 'EMAIL' ||
+                    d.type.toUpperCase() === 'NUMBER' ||
+                    d.type.toUpperCase() === 'DATE')
+            ) ||
+                d.tagName.toUpperCase() === 'TEXTAREA') {
+                doPrevent = d.readOnly || d.disabled;
+            }
+            else {
+                doPrevent = true;
+            }
+        }
+        if (doPrevent) {
+            event.preventDefault();
+        }
+    });
+    $(document).ready(function () {
+        $("#ddlCategory").change(function () {
+            var categoryclassId = $(this).val();
+            if (categoryclassId) {
+                $.getJSON("../Item/LoadSubClassesByCategoryId", { categoryclassid: categoryclassId },
+                    function (SubClassData) {
+                        var select = $("#ddlSubClasses");
+                        select.empty();
+                        select.append($('<option/>', {
+                            value: 0,
+                            text: "Select a SubClass"
+                        }));
+                        $.each(SubClassData, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                    });
+                if (categoryclassId == "1" || categoryclassId == "2" || categoryclassId == "3" || categoryclassId == "9") {
+                    $("#D1").hide();
+                    $("#D2").hide();
+                    $("#D3").hide();
+                    $("#D4").hide();
+                } else {
+                    $("#D1").show();
+                    $("#D2").show();
+                    $("#D3").show();
+                    $("#D4").show();
+                };
+                if (categoryclassId == "1" || categoryclassId == "2" || categoryclassId == "28") {
+                    $("#FFLInfo").show();
+                    $("#FFLInfoNotNeeded").hide();
+                } else {
+                    $("#FFLInfo").hide();
+                    $("#FFLInfoNotNeeded").show();
+                };
+            } else {
+                alert("Please select a Category.");
+                $("#ddlCategory").focus();
+
+            }
+        });
+        $("#ddlSubClasses").change(function () {
+            var subclassId = $(this).val();
+            var categoryId = $("#ddlCategory").val();
+            if (subclassId) {
+                $.getJSON("../Item/LoadFineLineClassesByCateogryIdSubClassId", { categoryclassid: categoryId, subclasscodeid: subclassId },
+                    function (FineLineData) {
+                        var select = $("#ddlFineLine");
+                        select.empty();
+                        select.append($('<option/>', {
+                            value: 0,
+                            text: "Select a FineLine"
+                        }));
+                        $.each(FineLineData, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                    });
+            } else {
+                alert("Please select a Sub Class.");
+                $("#ddlSubClasses").focus();
+
+            }
+
+        });
+
+        /* removed these event handlers in an effort to
+           verify the fields on focusout. thus, verifying the field
+           regardless of a paste command from the mouse of keyed entry */
+        /*
+        $("#Item_Description").keyup(function () {
+            UpdateSFDescription("i");
+        });
+
+        $("#SF_Item_Description").keyup(function () {
+            UpdateSFDescription("s");
+        });*/
+
+        function UpdateSFDescription(vi) {
+            var itemDesc = $("#Item_Description").val();
+            var vendorAbbrev = $("#VendorAbbrev").val();
+            if (vi == "v") {
+                if (itemDesc.trim().length > 4) {
+                    var index = itemDesc.indexOf(" ");
+                    if (index > 0) {
+                        itemDesc = vendorAbbrev + itemDesc.substring(index);
+                        $("#Item_Description").val(itemDesc);
+                    }
+                    else {
+                        $("#Item_Description").val(vendorAbbrev);
+                        itemDesc = $("#Item_Description").val();
+                    }
+                } else {
+                    $("#Item_Description").val(vendorAbbrev);
+                    itemDesc = $("#Item_Description").val();
+                }
+                var categoryId = $("#ddlCategory").val();
+                if ($("#ddlCategory").val == "1" || $("#ddlCategory").val == "2" || $("#ddlCategory").var == "3" || $("#ddlCategory").val == "9") {
+                    $("#SF_Item_Description").val(itemDesc);
+                } else {
+                    $("#SF_Item_Description").val(itemDesc);
+                }
+            }
+            /*else if (vi == "i") {
+                if (itemDesc.trim().length > 4) {
+                    var index = itemDesc.indexOf(" ");
+                    if (index > 0) {
+                        itemDesc = vendorAbbrev.trim() + itemDesc.substring(index);
+                        $("#Item_Description").val(itemDesc);
+                    }
+                    else {
+                        if (itemDesc != vendorAbbrev) {
+                            $("#Item_Description").val(vendorAbbrev);
+                            itemDesc = vendorAbbrev;
+                        }
+                    }
+                    $("#SF_Item_Description").val(itemDesc);
+                }
+            }
+            else {
+                var sDes = $("#SF_Item_Description").val();
+                if (sDes.trim().length > 4) {
+                    var index = sDes.indexOf(" ");
+                    if (index > 0) {
+                        sDes = vendorAbbrev.trim() + sDes.substring(index);
+                        $("#SF_Item_Description").val(sDes);
+                    }
+                    else {
+                        if (sDes != vendorAbbrev) {
+                            $("#SF_Item_Description").val(vendorAbbrev);
+                            sDes = vendorAbbrev;
+                        }
+                    }
+                    $("#Item_Description").val(sDes);
+                }
+            }*/
+        }
+
+        $("#Item_Description").focusout(function () {
+            VerifyItemDescription();
+        });
+
+        function VerifyItemDescription() {
+            var vdrAbrv = $("#VendorAbbrev").val();
+            var vdrAbrvLen = $("#VendorAbbrev").val().length;
+            var itemDesc = $("#Item_Description").val();
+            var itemDescLen = $("#Item_Description").val().length;
+            var itemDescVendAbbrev = itemDesc.substring(0, vdrAbrvLen);
+
+
+            //just for testing...will write the variables to the storefront item description field when method is called
+            /*$("#SF_Item_Description").val("vdrlen:" + vdrAbrvLen.toString() + " item desc:" + itemDesc.toString() + " desclen: " + itemDescLen.toString()
+                                       + " itmDescAbrv: " + itemDescVendAbbrev.toString());*/
+
+            //if the item description abbreviation (lead 3 or 4 chars) matches the vendor abbreviation AND
+            //there is either 1) a space at the appropriate index of the item description OR 2)the desc length = the abbrev length
+            if (itemDescVendAbbrev == vdrAbrv && (itemDesc.indexOf(" ") == (vdrAbrvLen) || itemDescLen == vdrAbrvLen)) {
+                //copy the item description to the storefront item description field
+                $("#SF_Item_Description").val(itemDesc);
+                $("#itemDescError").html("");
+            }
+            else {
+                //if error detected, prompt the user and force the focus back to the item description field
+                $("#itemDescError").html("The item description is formatted incorrectly. Must begin with vendor abbreviation " + vdrAbrv.toString() + " followed by a space.");
+                $("#Item_Description").focus();
+            }
+        }
+
+        $("#ddlVendor").change(function () {
+            var VendorId = $(this).val();
+            if (VendorId) {
+                $.getJSON("../Item/LoadVendorInfo", { vtid: VendorId },
+                    function (VendorData) {
+                        var trimmedAbbrev = VendorData.Abbrev;
+                        trimmedAbbrev = trimmedAbbrev.trim();
+                        $("#VendorNumber").val(VendorData.VendorNumber);
+                        //$("#VendorAbbrev").val(VendorData.Abbrev);
+                        $("#VendorAbbrev").val(trimmedAbbrev);
+
+                        UpdateSFDescription("v");
+
+                        $("#Item_Description").val(VendorData.Abbrev);
+                        var categoryId = $("#ddlCategory").val();
+                        if ($("#ddlCategory").val == "1" || $("#ddlCategory").val == "2" || $("#ddlCategory").var == "3" || $("#ddlCategory").val == "9") {
+                            $("#SF_Item_Description").val(VendorData.WebVendorName);
+                        } else {
+                            $("#SF_Item_Description").val(VendorData.Abbrev);
+                        }
+                    });
+            } else {
+                alert("Please select a vendor.");
+                $("#ddlVendor").focus();
+            }
+        });
+
+        $("#MFG_Number").blur(function () {
+            MFGNumber = $("#MFG_Number").val();
+            VendorNumber = $("#VendorNumber").val();
+            $.getJSON("../Item/CheckForMFG_NumberCreate", { mfgnumber: MFGNumber, vendornumber: VendorNumber },
+                function (CheckForMFG_Number) {
+                    if (typeof CheckForMFG_Number.Itm_Num !== "undefined") {
+                        var itmnum = CheckForMFG_Number.Itm_Num;
+                        if (typeof CheckForMFG_Number.FirstName !== "undefined") {
+                            var username = CheckForMFG_Number.FirstName + " " + CheckForMFG_Number.LastName;
+                        } else {
+                            var username = "";
+                        }
+                        if (typeof CheckForMFG_Number.Item_Description !== "undefined") {
+                            var Description = CheckForMFG_Number.Item_Description;
+                        } else {
+                            if (typeof CheckForMFG_Number.Item_Desc1 !== "undefined") {
+                                var Description = CheckForMFG_Number.Item_Desc1 + " " + CheckForMFG_Number.Item_Desc2;
+                            }
+                            else {
+                                var Description = "";
+                            }
+                        }
+                        alert("The MFG_Number entered is a duplicate to an Item.  \nBuyer:" + username
+                            + "\nItem Number:" + itmnum + "\nItem Description:" + Description);
+                        $("#MFG_Number").focus();
+                        return false;
+                    }
+                });
+        });
+
+        var UPC;
+        $("#EDIUPC").keydown(function () {
+            UPC = $("#EDIUPC").val();
+            $('#UPC').val(UPC);
+        });
+
+        $("#EDIUPC").blur(function () {
+            EDIUPC = $("#EDIUPC").val();
+            //Variable in           Variable in
+            //controller Function   JQuery
+            $.getJSON("../Item/CheckForEDIUPCCreate", { ediupc: EDIUPC },
+                function (CheckForEDIUPC) {
+                    if (typeof CheckForEDIUPC.Itm_Num !== "undefined") {
+                        var itmnum = CheckForEDIUPC.Itm_Num;
+                        if (typeof CheckForEDIUPC.FirstName !== "undefined") {
+                            var username = CheckForEDIUPC.FirstName + " " + CheckForEDIUPC.LastName;
+                        } else {
+                            var username = "";
+                        }
+                        if (typeof CheckForEDIUPC.Item_Description !== "undefined") {
+                            var Description = CheckForEDIUPC.Item_Description;
+                        } else {
+                            if (typeof CheckForEDIUPC.Item_Desc1 !== "undefined") {
+                                var Description = CheckForEDIUPC.Item_Desc1 + " " + CheckForEDIUPC.Item_Desc2;
+                            }
+                            else {
+                                var Description = "";
+                            }
+                        }
+                        alert("The EDI UPC entered is a duplicate to an Item.  \nBuyer:" + username
+                            + "\nItem Number:" + itmnum + "\nItem Description:" + Description);
+                        $("#EDIUPC").focus();
+                        return false;
+                    }
+                });
+            $("#UPC").val($("#EDIUPC").val());
+        });
+
+        $("#MSRP").blur(function () {
+            $("#txtMsrp").val("");
+        });
+
+        $("#Level1").blur(function () {
+            $("#Level2").val($("#Level1").val());
+            $("#Level3").val($("#Level1").val());
+            $("#JSCLevel5").val($("#Level1").val());
+            $("#txtLevel1").val("");
+        });
+        $("#Level2").blur(function () {
+            $("#txtLevel2").val("");
+        });
+        $("#Level3").blur(function () {
+            $("#txtLevel3").val("");
+        });
+        $("#Level4").blur(function () {
+            $("#txtLevel4").val("");
+        });
+        $("#JSCLevel5").blur(function () {
+            $("#txtLevel5").val("");
+        });
+        $("#txtMsrp").blur(function () {
+            VICost = $("#VICost").val();
+            if ($("#txtMsrp").val() != "") {
+                if (parseFloat($("#txtMsrp").val()) < 1 || parseFloat($("#txtMsrp").val()) > 99) {
+                    alert("Please enter a number between 1 and 99.");
+                    $("#txtMsrp").focus();
+                    return false;
+                }
+                MsrpPercent = $("#txtMsrp").val();
+                $.getJSON("../Item/CalculatePercentage", { percent: MsrpPercent, vicost: VICost },
+                    function (CalculatePercentage) {
+                        $("#MSRP").val(CalculatePercentage.Cost);
+                    });
+            }
+        });
+        $("#txtLevel1").blur(function () {
+            VICost = $("#VICost").val();
+            if ($("#txtLevel1").val() != "") {
+                if (parseFloat($("#txtLevel1").val()) < 1 || parseFloat($("#txtLevel1").val()) > 99) {
+                    alert("Please enter a number between 1 and 99.");
+                    $("#txtLevel1").focus();
+                    return false;
+                }
+                Level1 = $("#txtLevel1").val();
+                $.getJSON("../Item/CalculatePercentage", { percent: Level1, vicost: VICost },
+                    function (CalculatePercentage) {
+                        $("#Level1").val(CalculatePercentage.Cost);
+                    });
+            }
+        });
+        $("#txtLevel2").blur(function () {
+            VICost = $("#VICost").val();
+            if ($("#txtLevel2").val() != "") {
+                if (parseFloat($("#txtLevel2").val()) < 1 || parseFloat($("#txtLevel2").val()) > 99) {
+                    alert("Please enter a number between 1 and 99.");
+                    $("#txtLevel2").focus();
+                    return false;
+                }
+                Level2 = $("#txtLevel2").val();
+                $.getJSON("../Item/CalculatePercentage", { percent: Level2, vicost: VICost },
+                    function (CalculatePercentage) {
+                        $("#Level2").val(CalculatePercentage.Cost);
+                    });
+            }
+        });
+        $("#txtLevel3").blur(function () {
+            VICost = $("#VICost").val();
+            if ($("#txtLevel3").val() != "") {
+                if (parseFloat($("#txtLevel3").val()) < 1 || parseFloat($("#txtLevel3").val()) > 99) {
+                    alert("Please enter a number between 1 and 99.");
+                    $("#txtLevel3").focus();
+                    return false;
+                }
+                Level3 = $("#txtLevel3").val();
+                $.getJSON("../Item/CalculatePercentage", { percent: Level3, vicost: VICost },
+                    function (CalculatePercentage) {
+                        $("#Level3").val(CalculatePercentage.Cost);
+                    });
+            }
+        });
+        $("#txtLevel4").blur(function () {
+            VICost = $("#VICost").val();
+            if ($("#txtLevel4").val() != "") {
+                if (parseFloat($("#txtLevel4").val()) < 1 || parseFloat($("#txtLevel4").val()) > 99) {
+                    alert("Please enter a number between 1 and 99.");
+                    $("#txtLevel4").focus();
+                    return false;
+                }
+                Level4 = $("#txtLevel4").val();
+                $.getJSON("../Item/CalculatePercentage", { percent: Level4, vicost: VICost },
+                    function (CalculatePercentage) {
+                        $("#Level4").val(CalculatePercentage.Cost);
+                    });
+            }
+        });
+        $("#txtLevel5").blur(function () {
+            VICost = $("#VICost").val();
+            if ($("#txtLevel5").val() != "") {
+                if (parseFloat($("#txtLevel5").val()) < 1 || parseFloat($("#txtLevel5").val()) > 99) {
+                    alert("Please enter a number between 1 and 99.");
+                    $("#txtLevel5").focus();
+                    return false;
+                }
+                Level5 = $("#txtLevel5").val();
+                $.getJSON("../Item/CalculatePercentage", { percent: Level5, vicost: VICost },
+                    function (CalculatePercentage) {
+                        $("#JSCLevel5").val(CalculatePercentage.Cost);
+                    });
+            }
+        });
+
+        $("#VICost").blur(function () {
+            if ($("#VICost").val() == "") {
+                $("#MSRP").val("");
+                $("#txtMsrp").val("");
+                $("#Level1").val("");
+                $("#txtLevel1").val("");
+                $("#Level2").val("");
+                $("#txtLevel2").val("");
+                $("#Level3").val("");
+                $("#txtLevel3").val("");
+                $("#txtLevel4").val("");
+                $("#JSCLevel5").val("");
+                $("#txtLevel5").val("");
+            } else {
+                VICost = $("#VICost").val();
+                if ($("#txtMsrp").val() != "") {
+                    MsrpPercent = $("#txtMsrp").val();
+                    $.getJSON("../Item/CalculatePercentage", { percent: MsrpPercent, vicost: VICost },
+                        function (CalculatePercentage) {
+                            $("#MSRP").val(CalculatePercentage.Cost);
+                        });
+                }
+                if ($("#txtLevel1").val() != "") {
+                    Level1 = $("#txtLevl1").val();
+                    $.getJSON("../Item/CalculatePercentage", { percent: Level1, vicost: VICost },
+                        function (CalculatePercentage) {
+                            $("#Level1").val(CalculatePercentage.Cost);
+                        });
+                    //var vic = parseFloat($("#VICost").val());
+                    //var level1p = parseFloat("." + $("#txtLevel1").val())
+                    //$("#Level1").val((vic * level1p + vic).toFixed(2));
+
+                }
+                if ($("#txtLevel2").val() != "") {
+                    Level2 = $("#txtLevel2").val();
+                    $.getJSON("../Item/CalculatePercentage", { percent: Level2, vicost: VICost },
+                        function (CalculatePercentage) {
+                            $("#Level2").val(CalculatePercentage.Cost);
+                        });
+                    //var vic = parseFloat($("#VICost").val());
+                    //var level2p = parseFloat("." + $("#txtLevel2").val())
+                    //$("#Level2").val((vic * level2p + vic).toFixed(2));
+
+                }
+
+                if ($("#txtLevel3").val() != "") {
+                    Level3 = $("#txtLevel3").val();
+                    $.getJSON("../Item/CalculatePercentage", { percent: Level3, vicost: VICost },
+                        function (CalculatePercentage) {
+                            $("#Level3").val(CalculatePercentage.Cost);
+                        });
+                }
+
+                if ($("#txtLevel4").val() != "") {
+                    Level4 = $("#txtLevel4").val();
+                    $.getJSON("../Item/CalculatePercentage", { percent: Level4, vicost: VICost },
+                        function (CalculatePercentage) {
+                            $("#Level4").val(CalculatePercentage.Cost);
+                        });
+                }
+                if ($("#txtLevel5").val() != "") {
+                    Level5 = $("#txtLevel5").val();
+                    $.getJSON("../Item/CalculatePercentage", { percent: Level5, vicost: VICost },
+                        function (CalculatePercentage) {
+                            $("#JSCLevel5").val(CalculatePercentage.Cost);
+                        });
+                    //var vic = parseFloat($("#VICost").val());
+                    //var level5p = parseFloat("." + $("#txtLevel5").val())
+                    //$("#JSCLevel5").val((vic * level5p + vic).toFixed(2));
+
+                }
+            }
+        });
+        $("#FFLCaliber").keyup(function () {
+            showHideGaugeCaliber();
+        });
+        $("#FFLGauge").keyup(function () {
+            showHideGaugeCaliber();
+        });
+        function showHideGaugeCaliber() {
+            var caliber = $("#FFLCaliber").val().trim();
+            var gauge = $("#FFLGauge").val().trim();
+            if (caliber.length > 0) {
+                $("#spanCaliber").show();
+                if (gauge.length == 0)
+                    $("#spanGauge").hide();
+                else
+                    $("#spanGauge").show();
+            }
+            else {
+                $("#spanGauge").show();
+                if (gauge.length == 0)
+                    $("#spanCaliber").show();
+                else
+                    $("#spanCaliber").hide();
+            }
+        }
+    });
+
+    $(document).keypress(function (event) {
+        if (event.keyCode == "13") {
+            event.preventDefault()
+            return false;
+        }
+    });
+    /**/
+    /* END EXTERNAL SOURCE */
+    /* BEGIN EXTERNAL SOURCE */
+</script>
+
+<br />
+@using (Html.BeginForm("Create", "Item", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+                    <!--  @Html.ValidationSummary(true) -->
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <!-- modal placeholder-->
+                                    <table>
+                                        <tr>
+                                            <td colspan="4">
+                                                <h2>Add New Item</h2>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align:left;">
+                                                <div style="color:red" ;>* REQUIRED</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="lblblue">
+                                                    @Html.HiddenFor(model => model.Item_id)
+                                                </div>
+                                                @Html.LabelFor(model => model.Itm_Num):
+                                            </td>
+                                            <td class="textbox">
+                                                "Will be assigned based on Category selected."
+                                            </td>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="lblred">*</span>Vendor:
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.DropDownList("ManufacturerLogo_Id", (IEnumerable<SelectListItem>)ViewBag.VendorName, "- - - S E L E C T - - -", new { id = "ddlVendor", style = "width:350px;" })
+                                                <br />@Html.ValidationMessageFor(model => model.ManufacturerLogo_Id)
+                                            </td>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Vendor Number:
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.TextBox("VendorNumber", "", new { @readonly = "readonly", style = "width:120px;" })
+                                            </td>
+                                            <td>
+                                                <div style="margin-left:-60px; width: 400px">
+                                                    <!-- Country of Origin: @Html.DropDownList("countryOrig_id", (IEnumerable<SelectListItem>)ViewBag.Countries, "- - S E L E C T - -", new { id = "cid", style = "width:150px;" })   -->
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Vendor Abbreviation:
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.TextBox("VendorAbbrev", "", new { @readonly = "readonly", style = "width:50px" })
+                                            </td>
+                                            <td>
+                                                <div style="margin-left:-60px; width: 400px">
+                                                    <!-- Country of Manufacturer: @Html.DropDownList("countryManuf_id", (IEnumerable<SelectListItem>)ViewBag.Countries, "- - S E L E C T - -", new { id = "cid", style = "width:150px;" }) -->
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.LabelFor(model => model.Buyer):
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.TextBoxFor(model => model.Buyer, new { @Value = ViewBag.Buyer })
+                                                @Html.ValidationMessageFor(model => model.Buyer)
+                                            </td>
+                                            @if (ViewBag.UserType == 6)
+                                            {
+
+                                                <td>
+                                                    Assign to Buyer:
+                                                </td>
+                                                <td>
+                                                    @Html.DropDownList("AssignedBuyer_Id", (IEnumerable<SelectListItem>)ViewBag.BuyersList, "- - - S E L E C T - - -", new { id = "ddlBuyers", style = "width:350px;" })
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td colspan="2"></td>
+                                            }
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="lblred">*</span>@Html.LabelFor(model => model.CategoryClass_Id):
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.DropDownList("CategoryClass_Id", (IEnumerable<SelectListItem>)ViewBag.CategoryClass, "- - - S E L E C T - - -", new { id = "ddlCategory", style = "width:350px;" })
+                                                <br />@Html.ValidationMessageFor(model => model.CategoryClass_Id)
+                                            </td>
+                                            <td colspan="2" rowspan="3">
+                                                <table style="margin-left:20px">
+                                                    <tr>
+                                                        <td>
+                                                            <p>Upload Item Image</p>
+                                                            <input type="file" id="image1" name="image1" /><br />
+                                                            @Html.ValidationMessageFor(model => model.ItmImage)
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="lblred">*</span>@Html.LabelFor(model => model.SubClassCode_Id):
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.DropDownList("SubClassCode_Id", (IEnumerable<SelectListItem>)ViewBag.SubClass, "- - - S E L E C T - - -", new { id = "ddlSubClasses", style = "width:350px;" })
+                                                <br />@Html.ValidationMessageFor(model => model.SubClassCode_Id)
+                                            </td>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="lblred">*</span> @Html.LabelFor(model => model.FineLineCode_Id):
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.DropDownList("FineLineCode_Id", (IEnumerable<SelectListItem>)ViewBag.FineLineClass, "- - - S E L E C T - - -", new { id = "ddlFineLine", style = "width:350px;" })
+                                                <br />@Html.ValidationMessageFor(model => model.FineLineCode_Id)
+                                            </td>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div id="D1">
+                                                    @Html.LabelFor(model => model.Item_Description):
+                                                </div>
+                                            </td>
+                                            <td class="textbox" colspan="3">
+                                                <div id="D2">
+                                                    @Html.TextBoxFor(model => model.Item_Description, new { style = "width:600px;" })
+                                                    <div class="error" id="itemDescError" style="color:red"></div>
+                                                    <br />
+                                                    @Html.ValidationMessageFor(model => model.Item_Description)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div id="D3">
+                                                    @Html.LabelFor(model => model.SF_Item_Description):
+                                                </div>
+                                            </td>
+                                            <td class="textbox" colspan="3">
+                                                <div id="D4">
+                                                    <!-- added readonly to the textbox...it'll match the item description field-->
+                                                    @Html.TextBoxFor(model => model.SF_Item_Description, new { @readonly = "readonly", style = "width:600px;" })<br />
+                                                    @Html.ValidationMessageFor(model => model.SF_Item_Description)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @if (ViewBag.UserType != 6)
+                                        {
+                                            <tr>
+                                                <td style="text-align:right;vertical-align:top;"><b>FFL Information</b>:</td>
+                                                <td colspan="3" style="text-align:left;">
+                                                    <div id="FFLInfo">
+                                                        <table style="border:1px solid black;">
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="lblred">*</span>Type:
+                                                                </td>
+                                                                <td style="text-align:left">
+                                                                    @Html.DropDownList("FFLType_Id", (IEnumerable<SelectListItem>)ViewBag.FFLType, "- - - S E L E C T - - -", new { id = "ddlFFLType", style = "width:250px;" })
+                                                                </td>
+                                                                <td>
+                                                                    <span class="lblred" id="spanGauge">*</span>Gauge:
+                                                                </td>
+                                                                <td>
+                                                                    @Html.EditorFor(model => model.FFLGauge)<br />
+                                                                    @Html.ValidationMessageFor(model => model.FFLGauge)
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="lblred" id="spanCaliber">*</span>Caliber:
+                                                                </td>
+                                                                <td class="textbox">
+                                                                    @Html.EditorFor(model => model.FFLCaliber)<br />
+                                                                    @Html.ValidationMessageFor(model => model.FFLCaliber)
+                                                                </td>
+                                                                <td>
+                                                                    <span class="lblred">*</span>Model:
+                                                                </td>
+                                                                <td class="textbox">
+                                                                    @Html.EditorFor(model => model.FFLModel)<br />
+                                                                    @Html.ValidationMessageFor(model => model.FFLModel)
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="lblred">*</span>Mfg. Name:
+                                                                </td>
+                                                                <td class="textbox">
+                                                                    @Html.EditorFor(model => model.FFLMFGName)<br />
+                                                                    @Html.ValidationMessageFor(model => model.FFLMFGName)
+                                                                </td>
+                                                                <td>
+                                                                    Mfg. Import Name:
+                                                                </td>
+                                                                <td class="textbox">
+                                                                    @Html.EditorFor(model => model.FFLMFGImportName)<br />
+                                                                    @Html.ValidationMessageFor(model => model.FFLMFGImportName)
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div id="FFLInfoNotNeeded">
+                                                        No FFL information needed.
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td>
+                                                <span class="lblred">*</span>@Html.LabelFor(model => model.MFG_Number):
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.EditorFor(model => model.MFG_Number)<br />
+                                                @Html.ValidationMessageFor(model => model.MFG_Number)
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="lblred">*</span>@Html.LabelFor(model => model.EDIUPC):
+
+                                            </td>
+
+                                            <td class="textbox">
+                                                @Html.EditorFor(model => model.EDIUPC)
+                                                @Html.ValidationMessageFor(model => model.EDIUPC)
+                                            </td>
+                                            @*<td class="textbox">
+                                                    <div style="margin-left: -100px">
+                                                        <span class="lblred">*</span>Purchasing UOM:
+                                                        @Html.DropDownList("EDIUM_Id", (IEnumerable<SelectListItem>)ViewBag.UM_Lookup, "- - - S E L E C T - - -", new { id = "ddlEDIUM", style = "width:150px;margin-top: -10px" })
+                                                        @Html.ValidationMessageFor(model => model.UM_Id)
+                                                    </div>
+                                                </td>
+                                                <td class="textbox">
+                                                    <div style="margin-left: -150px; margin-top: -12px">
+                                                        <table width="255">
+                                                            <tr>
+                                                                <td>
+                                                                    Purchasing UOM Quantity:
+                                                                </td>
+                                                                <td>
+                                                                     @Html.TextBox("EDIUM_quantity", "", new { style = "width:50px" })
+                                                                     @Html.ValidationMessageFor(model => model.EDIUM_quantity)
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>*@
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="lblred">*</span>@Html.LabelFor(model => model.UPC):
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.EditorFor(model => model.UPC)
+                                                @Html.ValidationMessageFor(model => model.UPC)
+                                            </td>
+                                            <td class="textbox">
+                                                <div style="margin-left: -73px">
+                                                    <span class="lblred">*</span>Selling UOM:
+                                                    @Html.DropDownList("UM_Id", (IEnumerable<SelectListItem>)ViewBag.UM_Lookup, "- - - S E L E C T - - -", new { id = "ddlUM", style = "width:150px;margin-top: -30px" })
+                                                    @Html.ValidationMessageFor(model => model.UM_Id)
+                                                </div>
+                                            </td>
+                                            <td class="textbox">
+                                                <div style="margin-left: -150px; margin-top: -12px">
+                                                    <table width="255">
+                                                        <tr>
+                                                            <td>
+                                                                Alternate UOM:
+                                                            </td>
+                                                            <td>
+                                                                @Html.DropDownList("AltUM_id", (IEnumerable<SelectListItem>)ViewBag.UM_Lookup, "- - - S E L E C T - - -", new { id = "ddlAltUM_id", style = "width:140px;" })
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @*if (ViewBag.UserType != 6)
+                                            {*@
+                                        <tr>
+                                            <td>
+                                                <span class="lblred">*</span>@Html.LabelFor(model => model.VICost):
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.EditorFor(model => model.VICost)<br />
+                                                @Html.ValidationMessageFor(model => model.VICost)
+                                            </td>
+                                            <td class="textbox">
+                                                <div style="margin-left: -93px">
+                                                    <span class="lblred">*</span>@Html.LabelFor(model => model.WholeSaleMTP):
+                                                    @Html.DropDownList("WholeSaleMTP", (IEnumerable<SelectListItem>)ViewBag.WholeSale_MTP, "- - - S E L E C T - - -")
+                                                    <br />@Html.ValidationMessage("WholeSaleMTP")
+                                                </div>
+                                            </td>
+                                            <td></td>
+
+                                        </tr>
+                                        @*}*@
+                                        <tr>
+                                            <td style="text-align:right;vertical-align:top;"><b>Pricing</b>:</td>
+                                            <td colspan="3">
+                                                <table style="border:1px solid black;">
+                                                    <tr>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span class="lblred">*</span>@Html.LabelFor(model => model.MSRP):
+                                                                    </td>
+                                                                    <td class="textbox">
+                                                                        @Html.EditorFor(model => model.MSRP, new { style = "width:50px" })
+                                                                        <input type="text" id="txtMsrp" style="width:30px;" name="txtMsrp" value="" />%<br />
+
+                                                                        @Html.ValidationMessageFor(model => model.MSRP)
+                                                                    </td>
+                                                                </tr>
+                                                                @if (ViewBag.UserType != 6)
+                                                                {
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="lblred">*</span>@Html.LabelFor(model => model.Level1):
+                                                                        </td>
+                                                                        <td class="textbox">
+                                                                            @Html.EditorFor(model => model.Level1, new { style = "width:50px" })
+                                                                            <input type="text" id="txtLevel1" style="width:30px;" name="txtLevel1" value="" />%<br />
+
+                                                                            @Html.ValidationMessageFor(model => model.Level1)
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="lblred">*</span>@Html.LabelFor(model => model.Level2):
+                                                                        </td>
+                                                                        <td class="textbox">
+                                                                            @Html.EditorFor(model => model.Level2, new { style = "width:50px" })
+                                                                            <input type="text" id="txtLevel2" style="width:30px;" name="txtLevel2" value="" />%<br />
+
+                                                                            @Html.ValidationMessageFor(model => model.Level2)
+                                                                        </td>
+                                                                        <td colspan="2"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="lblred">*</span>@Html.LabelFor(model => model.Level3):
+                                                                        </td>
+                                                                        <td class="textbox">
+                                                                            @Html.EditorFor(model => model.Level3)
+                                                                            <input type="text" id="txtLevel3" style="width:30px;" name="txtLevel3" value="" />%<br />
+                                                                            <!--                                        <input type="text" id="txtLevel3" style="width:30px;" name="txtLevel3" value="" onblur="UpdateLevel3();"/>%<br />-->
+                                                                            @Html.ValidationMessageFor(model => model.Level3)
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </table>
+                                                        </td>
+                                                        <td>
+                                                            <table>
+                                                                @if (ViewBag.UserType != 6)
+                                                                {
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="lblred">*</span>@Html.LabelFor(model => model.Level4):
+                                                                        </td>
+                                                                        <td class="textbox">
+                                                                            @Html.EditorFor(model => model.Level4)
+                                                                            <input type="text" id="txtLevel4" style="width:30px;" name="txtLevel4" value="" />%<br />
+                                                                            @Html.ValidationMessageFor(model => model.Level4)
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="lblred">*</span>@Html.LabelFor(model => model.JSCLevel5):
+                                                                        </td>
+                                                                        <td class="textbox">
+                                                                            @Html.EditorFor(model => model.JSCLevel5)
+                                                                            <input type="text" id="txtLevel5" style="width:30px;" name="txtLevel5" value="" />%<br />
+                                                                            <!--                                        <input type="text" id="txtLevel5" style="width:30px;" name="txtLevel5" value="" onblur="UpdateLevel5();"/>%<br />-->
+                                                                            @Html.ValidationMessageFor(model => model.JSCLevel5)
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                                <tr>
+                                                                    <td>
+                                                                        @Html.LabelFor(model => model.MinAdvertisePrice):
+                                                                    </td>
+                                                                    <td class="textbox">
+                                                                        @Html.EditorFor(model => model.MinAdvertisePrice)<br />
+                                                                        @Html.ValidationMessageFor(model => model.MinAdvertisePrice)
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        @Html.LabelFor(model => model.MinAdvertisePriceFlag):
+                                                                    </td>
+                                                                    <td class="textbox">
+                                                                        @Html.DropDownList("MinAdvertisePriceFlag", (IEnumerable<SelectListItem>)ViewBag.MinAdvertisePriceFlag, "- - - S E L E C T - - -")
+                                                                        <br />@Html.ValidationMessage("MinAdvertisePriceFlag")
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        @if (ViewBag.UserType != 6)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.LabelFor(model => model.Qty_Break):
+                                                <td class="textbox">
+                                                    @Html.EditorFor(model => model.Qty_Break)<br />
+                                                    @Html.ValidationMessageFor(model => model.Qty_Break)
+                                                </td>
+                                                <td colspan="2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    @Html.LabelFor(model => model.Qty_BreakPrice):
+                                                </td>
+                                                <td class="textbox">
+                                                    @Html.EditorFor(model => model.Qty_BreakPrice)<br />
+                                                    @Html.ValidationMessageFor(model => model.Qty_BreakPrice)
+                                                </td>
+                                                <td colspan="2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="lblred">*</span>Web Code:
+                                                </td>
+                                                <td class="textbox">
+                                                    @Html.DropDownList("CatWebCode_Id", (IEnumerable<SelectListItem>)ViewBag.CatWebCode_Lookup, "- - - S E L E C T - - -", new { id = "ddlWebcode", style = "width:240px;" })
+                                                    <br />@Html.ValidationMessageFor(model => model.CatWebCode_Id)
+                                                </td>
+                                                <td colspan="2" class="textbox">
+                                                    <span class="lblred">*</span>@Html.LabelFor(model => model.Freight_Id):
+                                                    @Html.DropDownList("Freight_Id", (IEnumerable<SelectListItem>)ViewBag.Freight_Lookup, "- - - S E L E C T - - -", new { id = "ddlFreight", style = "width:350px;" })
+                                                    <br />@Html.ValidationMessageFor(model => model.Freight_Id)
+                                                </td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="lblred">*</span>@Html.LabelFor(model => model.Plan_YN):
+                                                </td>
+                                                <td class="textbox">
+                                                    @Html.DropDownList("Plan_YN", (IEnumerable<SelectListItem>)ViewBag.Plan, "- - - S E L E C T - - -")
+                                                    <br />@Html.ValidationMessageFor(model => model.Plan_YN)
+                                                </td>
+                                                <td colspan="2" class="textbox">
+                                                    <span class="lblred">*</span>@Html.LabelFor(model => model.ABC_Id):
+                                                    @Html.DropDownList("ABC_Id", (IEnumerable<SelectListItem>)ViewBag.ABC_Lookup, "- - - S E L E C T - - -")
+                                                    <br />@Html.ValidationMessageFor(model => model.ABC_Id)
+                                                </td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td>
+                                                <span class="lblred">*</span>@Html.LabelFor(model => model.STD):
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.EditorFor(model => model.STD)<br />
+                                                @Html.ValidationMessageFor(model => model.STD)
+                                            </td>
+                                            <td colspan="2" class="textbox">
+                                                <span class="lblred">*</span>@Html.LabelFor(model => model.MIN):
+                                                @Html.EditorFor(model => model.MIN)<br />
+                                                @Html.ValidationMessageFor(model => model.MIN)
+                                            </td>
+                                        </tr>
+                                        @if (ViewBag.UserType != 6)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <span class="lblred">*</span> Warehouses:
+                                                </td>
+                                                <td colspan="3" class="textbox">
+                                                    @if (ViewBag.WareHousesList != null)
+                                                    {
+                                                        foreach (var wh in ViewBag.WareHousesList)
+                                                        {
+
+                                                            <input id="available-item-@wh.Value"
+                                                                   name="WareHousesList"
+                                                                   title="wareHouse"
+                                                                   type="checkbox"
+                                                                   value="@wh.Value"
+                                                                   data-text="@wh.Text"
+                                                                   @(wh.Selected == true ? "checked=checked" : "") />
+                                                            <span style="color:black">@wh.Text</span>
+
+                                                        }
+                                                    }
+                                                    <span id="wareHouseNotSelected">@Html.ValidationMessageFor(model => model.WareHousesList)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    @Html.LabelFor(model => model.Haz):
+                                                </td>
+                                                <td class="textbox">
+                                                    @Html.DropDownList("Haz", (IEnumerable<SelectListItem>)ViewBag.Hazardous, "- - - S E L E C T - - -")
+                                                </td>
+
+                                                <td colspan="2"></td>
+
+
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td class="textbox" style="text-align:center;" colspan="4">
+                                                @Html.LabelFor(model => model.Exclusive):
+                                                <input type="checkbox" name="chkExclusive" id="chkExclusive" @ViewBag.Exclusive />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                @Html.LabelFor(model => model.Allocated):
+                                                <input type="checkbox" name="chkAllocated" id="chkAllocated" @ViewBag.Allocated />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                @Html.LabelFor(model => model.DropShip):
+                                                <input type="checkbox" name="chkDropShip" id="chkDropShip" @ViewBag.DropShip />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                @Html.LabelFor(model => model.PreventFromWeb):
+                                                <input type="checkbox" name="chkPreventFromWeb" id="chkPreventFromWeb" @ViewBag.PreventFromWeb />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                @Html.LabelFor(model => model.SpecialOrder):
+                                                <input type="checkbox" name="chkSpecialOrder" id="chkSpecialOrder" @ViewBag.SpecialOrder />
+                                            </td>
+                                        </tr>
+                                        @*using (Html.BeginForm("SaveFastTrack", "Item", FormMethod.Post))
+                                            {*@
+
+                                        @if (int.Parse(Session.Contents["UserTypeID"].ToString()) != 6)
+                                        {
+                                            <tr style="text-align:center;">
+                                                <td colspan="4" style="text-align:center" class="textbox">
+                                                    @Html.LabelFor(model => model.FastTrack):
+                                                    <!--             <input type="submit" value="Fast Track" />-->
+                                                    <input type="checkbox" name="chkFastTrack" id="chkFastTrack" @ViewBag.FastTrack />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr style="text-align:center;">
+                                                <td colspan="4" style="text-align:center" class="textbox">
+                                                    @Html.HiddenFor(model => model.FastTrack)
+                                                </td>
+                                            </tr>
+                                        }
+
+                                        @*}*@
+                                        <tr>
+                                            <td>
+                                                @Html.LabelFor(model => model.Company99):
+                                            </td>
+                                            <td class="textbox" colspan="3">
+                                                @Html.DropDownList("Company99", (IEnumerable<SelectListItem>)ViewBag.Company99_List, "- - - S E L E C T - - -")  <span style="color:red;">Select 99 to HIDE ITEM in APLUS.</span>
+                                                <br />@Html.ValidationMessageFor(model => model.Company99)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align:center">
+                                                <input type="submit" value="Create" />
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                }
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <script type="text/javascript">
+    $(document).ready(function () {
+            $('[title="wareHouse"]').show();
+            var VendorId = $("#ddlVendor").val();
+            $.getJSON("../Item/LoadVendorInfo", { vtid: VendorId },
+                function (VendorData) {
+                    $("#VendorNumber").val(VendorData.VendorNumber);
+                    $("#VendorAbbrev").val(VendorData.Abbrev);
+                    //$("#BuyerName").val(VendorData.BuyerName);
+                    //$("#Item_Description").val(VendorData.Abbrev);
+                });
+        });
+        $('[title="wareHouse"]').change(function () {
+            var hasCheck = false;
+            $('[title="wareHouse"]').each(function () {
+                if ($(this).is(':checked'))
+                    hasCheck = true;
+            });
+            if ($('#wareHouseNotSelected').is(':visible') && hasCheck) {
+                $('#wareHouseNotSelected').hide();
+            }
+            else if (!$('#wareHouseNotSelected').is(':visible') && !hasCheck) {
+                $('#wareHouseNotSelected').show();
+            }
+            else if (!$('#wareHouseNotSelected').is(':visible') && hasCheck) {
+                $('#wareHouseNotSelected').hide();
+            }
+            else {
+                $('#wareHouseNotSelected').show();
+            }
+        });
+    </script>
+}

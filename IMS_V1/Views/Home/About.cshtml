@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<script src="~/Scripts/vue.js"></script>
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+<div id="aboutPage">
+    <h1>Count: {{ count }}</h1> <br />
+    <input type="text" v-model="message" />
+    <button >Press Me!</button>
+</div>
+<script>
+    var aboutPage = new Vue({
+        el: '#aboutPage',
+        data: {
+            message: 'Hello Vue! in About Page',
+            count: 0
+        }
+    });
+</script>
+
+<article>
+    <p>
+        Use this area to provide additional information.
+    </p>
+
+    <p>
+        Use this area to provide additional information.
+    </p>
+
+    <p>
+        Use this area to provide additional information.
+    </p>
+</article>
+
+<aside>
+    <h3>Aside Title</h3>
+    <p>
+        Use this area to provide additional information.
+    </p>
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</aside>

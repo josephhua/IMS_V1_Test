@@ -1,0 +1,102 @@
+﻿@model PagedList.IPagedList<IMS_V1.ImportedItem>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />@{
+    ViewBag.Title = "Imported Items";
+}
+<style>
+    .CAIFButton {
+        position: absolute;
+        right: 13cm;
+    }
+
+    .APlusImportMsg {
+        position: absolute;
+        right: 12cm;
+        top: 8cm;
+    }
+</style>
+<h2>Imported Items</h2>
+<link rel="stylesheet" href="~/Content/theatre.css" type="text/css" />
+<p>
+    @Html.ActionLink("Upload file", "Index")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+@Html.PagedListPager(Model, page => Url.Action("ImportedItems", new { currentFilter = ViewBag.CurrentFilter, page }))
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<table>
+    <tr>
+        <th>
+            MFG.Number
+        </th>
+        <th>
+            Vendor Name
+        </th>
+        <th>
+            Item Description
+        </th>
+        <th>
+            VI Cost
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Buyer
+        </th>
+        <th>
+            UPC
+        </th>
+        <th>
+            Import
+        </th>
+    </tr>
+    @{var bkc = "whitesmoke";}
+    @foreach (var item in Model)
+    {
+        if (bkc == "whitesmoke")
+        {
+            bkc = "white";
+        }
+        else
+        {
+            bkc = "whitesmoke";
+        }
+        <tr style="background-color:@bkc;">
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.MFG_Number)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.zManufacturersLogo.APlusVendorName)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.Item_Description)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.VICost)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.CategoryClass.CategoryName)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.Buyer)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.UPC)
+            </td>
+            <td>
+                @Html.ActionLink("Push to IMS", "CreateItem", new { id = item.ImportItem_id, userid = ViewBag.userid })
+            </td>
+        </tr>
+    }
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("ImportedItems", new { currentFilter = ViewBag.CurrentFilter, page }))
+

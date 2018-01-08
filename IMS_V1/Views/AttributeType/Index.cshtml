@@ -1,0 +1,48 @@
+﻿@model IEnumerable<IMS_V1.AttributeType>
+
+@{
+    ViewBag.Title = "Attribute Types";
+}
+
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="2" style="text-align:center;">
+            <h2>Attribute Types</h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:left;">
+            @Html.ActionLink("Create New", "Create")
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Attribute
+        </th>
+        <th>
+            Enabled
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.AttributeType1)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AttributeType_Id }) |
+                @Html.ActionLink("Attribute Values", "Index", "Attribute_Lookup", new { id = item.AttributeType_Id }, null)
+                @*Html.ActionLink("Delete", "Delete", new { id=item.AttributeType_Id })*@
+            </td>
+        </tr>
+    }
+
+</table>

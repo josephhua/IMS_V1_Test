@@ -1,0 +1,76 @@
+﻿@model IEnumerable<IMS_V1.zManufacturersLogo>
+
+@{
+    ViewBag.Title = "Vendors";
+}
+
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="7" style="text-align:center;">
+            <h2>Vendors</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="7" style="text-align:left;">
+            @Html.ActionLink("Create New Vendor", "Create")
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Number
+        </th>
+        <th>
+            APlus Name
+        </th>
+        <th>
+            Logo Name
+        </th>
+        <th>
+            Web Name
+        </th>
+        <th>
+            Abbrev
+        </th>
+        <th>
+            URL
+        </th>
+        <th>
+            Enabled
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:center;font-size:.60em;">
+                @Html.DisplayFor(modelItem => item.VendorNumber)
+            </td>
+            <td style="text-align:left;font-size:.60em;">
+                @Html.DisplayFor(modelItem => item.APlusVendorName)
+            </td>
+            <td style="text-align:left;font-size:.60em;">
+                @Html.DisplayFor(modelItem => item.LogoName)
+            </td>
+            <td style="text-align:left;font-size:.60em;">
+                @Html.DisplayFor(modelItem => item.WebVendorName)
+            </td>
+            <td style="text-align:left;font-size:.60em;">
+                @Html.DisplayFor(modelItem => item.Abbrev)
+            </td>
+            <td style="text-align:left;font-size:.60em;">
+                @Html.DisplayFor(modelItem => item.URL)
+            </td>
+            <td style="text-align:left;font-size:.60em;">
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+            <td style="text-align:center;font-size:.60em;">
+                @Html.ActionLink("Edit", "Edit", new { id = item.ManufacturerLogo_Id })
+            </td>
+        </tr>
+    }
+
+</table>

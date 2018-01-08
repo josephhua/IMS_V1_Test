@@ -1,0 +1,90 @@
+﻿@model IMS_V1.ItemAttribute
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+
+<table>
+    <tr>
+        <td colspan="2" style="text-align:left">
+            <b>Item Number:</b> @ViewBag.Itm_num
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:left">
+            <b>Item Description:</b> @ViewBag.ItemDescription
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:left">
+            @Html.HiddenFor(model => model.ItemAttribute_Id)
+            @Html.HiddenFor(model => model.Item_Id)
+            Attribute Type: @ViewBag.AttributeType
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Website Attribute Value:
+        </td>
+        <td colspan="2" style="text-align:left" class="textbox">
+            @ViewBag.WebsiteAttributeValue
+        </td>
+    </tr>
+    <tr>
+        <td>
+            APlus Attribute Value:
+        </td>
+        <td colspan="2" style="text-align:left" class="textbox">
+            @ViewBag.APlusAttributeValue
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Default Attribute Value:
+        </td>
+        <td colspan="2" style="text-align:left" class="textbox">
+            @ViewBag.DefaultAttributeValue
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Actual Attribute Value:
+        </td>
+        <td class="textbox">
+            @ViewBag.ActualAttributeValue
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h3>Are you sure you want to delete this?</h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @using (Html.BeginForm())
+            {
+                <p>
+                    @if (int.Parse(Session.Contents["UserTypeID"].ToString()) != 6)
+                    {
+                        <input type="submit" value="Delete" />
+                    }
+                    else
+                    {
+                        if (ViewBag.Printed != "Y")
+                        {
+                            <input type="submit" value="Delete" />
+                        }
+                    }
+                </p>
+            }
+        </td>
+    </tr>
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", new { id = Model.Item_Id })
+</div>

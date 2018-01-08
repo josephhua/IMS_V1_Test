@@ -1,0 +1,78 @@
+﻿@model IMS_V1.FFLType
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                                    <br />
+                                    <br />
+                                    <table>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <h2>Edit</h2>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:right;">
+                                                <div class="editor-label">
+                                                    @Html.HiddenFor(model => model.FFLType_Id)
+                                                    @Html.LabelFor(model => model.FFLType_Code)
+                                                </div>
+                                            </td>
+                                            <td style="text-align:left;">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.FFLType_Code)
+                                                    @Html.ValidationMessageFor(model => model.FFLType_Code)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:right;">
+                                                @Html.HiddenFor(model => model.FFLType_Id)
+                                                <div class="editor-label">
+                                                    @Html.LabelFor(model => model.FFLType_Description)
+                                                </div>
+                                            </td>
+                                            <td style="text-align:left;">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.FFLType_Description)
+                                                    @Html.ValidationMessageFor(model => model.FFLType_Description)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.LabelFor(model => model.Enabled):
+                                                </div>
+                                            </td>
+                                            <td style="text-align:left;">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Enabled)
+                                                    @Html.ValidationMessageFor(model => model.Enabled)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <p>
+                                                    <input type="submit" value="Save" />
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,114 @@
+﻿@model IMS_V1.Freight_Lookup
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                                    <br />
+                                    <br />
+                                    <table>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <h2>Create</h2>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.HiddenFor(model => model.Freight_Id)
+                                                APlusClass:
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Freight_APlusClass)
+                                                    @Html.ValidationMessageFor(model => model.Freight_APlusClass)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Dot Class:
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Freight_DotClass)
+                                                    @Html.ValidationMessageFor(model => model.Freight_DotClass)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Item Class:
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Freight_ItemClass)
+                                                    @Html.ValidationMessageFor(model => model.Freight_ItemClass)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Commodity:
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Freight_Commodity)
+                                                    @Html.ValidationMessageFor(model => model.Freight_Commodity)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                NMFC Item Number:
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Freight_NMFCItemNumber)
+                                                    @Html.ValidationMessageFor(model => model.Freight_NMFCItemNumber)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Hazard:
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.DropDownList("Haz", (IEnumerable<SelectListItem>)ViewBag.Hazardous, "- - - S E L E C T - - -")
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.LabelFor(model => model.Enabled):
+                                                </div>
+                                            </td>
+                                            <td style="text-align:left;">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Enabled)
+                                                    @Html.ValidationMessageFor(model => model.Enabled)
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <input type="submit" value="Save" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

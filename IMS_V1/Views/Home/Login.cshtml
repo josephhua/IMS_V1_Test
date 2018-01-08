@@ -1,0 +1,73 @@
+﻿@model IMS_V1.User
+
+@{
+    ViewBag.Title = "Login";
+}
+<br />
+<br />
+<br />
+<br />
+<div style="margin-right:250px">
+    <p style="font-size: 1.0em;color: #880015;font-weight: bolder;text-align:center">Login</p>
+</div>
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    //this  is for create form tag
+    @Html.AntiForgeryToken() // this is for prevent CSRF attack
+    @Html.ValidationSummary(true)
+                    @*    if (@ViewBag.Message != null)*@
+                    <!--    {-->
+                    <!--        <div style="border:1px solid red">
+
+                            </div>-->
+                    <!--    }-->
+
+                    <Center>
+                        <table style="flex-align:center">
+                            <tr>
+                                <td>
+                                    <div style="color: red">
+                                        @ViewBag.LoginError
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>@Html.LabelFor(a => a.UserName)</td>
+                                <td id="username">@Html.TextBoxFor(a => a.UserName, new { id = "username" })</td>
+                                <td>@Html.ValidationMessageFor(a => a.UserName)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(a => a.Password)
+                                </td>
+                                <td>
+                                    @Html.PasswordFor(a => a.Password)
+                                </td>
+                                <td>
+                                    @Html.ValidationMessageFor(a => a.Password)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <input type="submit" value="Login" style="margin-right: 100px" />
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </Center>
+
+                }
+
+@* This below line is for create javascript section *@
+<script type="text/javascript">
+     //<![CDATA[
+     $(function () {
+         $("#username").focus();
+     });
+     //]]>
+</script>
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

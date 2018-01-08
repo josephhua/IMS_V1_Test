@@ -1,0 +1,117 @@
+﻿@model IEnumerable<IMS_V1.Item>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+@foreach (var item in Model)
+{
+
+    <table>
+        <tr>
+            <td>
+                <b>Buyer:</b>@Html.DisplayFor(modelItem => item.Itm_Num)
+            </td>
+            <td>
+                <b>Vendor:</b>@Html.DisplayFor(modelItem => item.zManufacturersLogo.WebVendorName) - @Html.DisplayFor(modelItem => item.zManufacturersLogo.VendorNumber)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Item #:</b>@Html.DisplayFor(modelItem => item.Itm_Num)
+            </td>
+            <td>
+                <b>Abbr:</b>@Html.DisplayFor(modelItem => item.zManufacturersLogo.Abbrev)
+            </td>
+            <td>
+                <b>Description(Max 27 Spaces):</b>@Html.DisplayFor(modelItem => item.APlusDescription1)|-|@Html.DisplayFor(modelItem => item.APlusDescription2)
+            </td>
+            <td>
+                <b>MFG Number:</b>@Html.DisplayFor(modelItem => item.MFG_Number)
+            </td>
+            <td>
+                <b>U/M:</b>@Html.DisplayFor(modelItem => item.UM_Lookup.UM_Code)
+            </td>
+            <td>
+                <b>Retail(MSRP):</b>@Html.DisplayFor(modelItem => item.MSRP)
+            </td>
+            <td>
+                <b>Level 1:</b>@Html.DisplayFor(modelItem => item.Level1)
+            </td>
+            <td>
+                <b>Level 2:</b>@Html.DisplayFor(modelItem => item.Level2)
+            </td>
+            <td>
+                <b>Level 3:</b>@Html.DisplayFor(modelItem => item.Level3)
+            </td>
+            <td>
+                <b>JSC Level 5:</b>@Html.DisplayFor(modelItem => item.JSCLevel5)
+            </td>
+            <td>
+                <b>Class:</b>@Html.DisplayFor(modelItem => item.CategoryClass.Category_Id)
+            </td>
+            <td>
+                <b>Sub:</b>@Html.DisplayFor(modelItem => item.SubClass.SubClass_Id)
+            </td>
+            <td>
+                <b>FL:</b>@Html.DisplayFor(modelItem => item.FineLineClass.FineLine_Id)
+            </td>
+            <td>
+                <b>Cat/Web Code:</b>@Html.DisplayFor(modelItem => item.WebCode.WebCode1)
+            </td>
+            <td>
+                <b>Freight Class:</b>@Html.DisplayFor(modelItem => item.Freight_Lookup.Freight_ItemClass)
+            </td>
+            <td>
+                <b>Plan Y or N:</b>@Html.DisplayFor(modelItem => item.Plan_YN)
+            </td>
+            <td>
+                <b>ABC:</b>@Html.DisplayFor(modelItem => item.ABC_Lookup.ABC_Code)
+            </td>
+            <td>
+                <!--            <b>D/S:</b>switch case when modelItem => item.DropShip == 'Y'
+
+                           tml.DisplayFor(modelItem =>item.Itm_Num)
+                            Case when i.DropShip = 'Y' then 'D'
+                    WHEN i.SpecialOrder = 'Y' then 'S' End as DropShip-->
+            </td>
+            <td>
+                <b>STD:</b>@Html.DisplayFor(modelItem => item.STD)
+            </td>
+            <td>
+                <b>MIN:</b>@Html.DisplayFor(modelItem => item.MIN)
+            </td>
+            <td>
+                <b>V/I Cost:</b>@Html.DisplayFor(modelItem => item.VICost)
+            </td>
+            <td>
+                <b>01:Chapin:</b>@Html.DisplayFor(modelItem => item.ItemWareHouses.we.Itm_Num)
+            </td>
+            <td>
+                <b>08:Reno:</b>@Html.DisplayFor(modelItem => item.Itm_Num)
+            </td>
+            <td>
+                <b>10:Pittston:</b>@Html.DisplayFor(modelItem => item.Itm_Num)
+            </td>
+            <td>
+                <b>12:Simmons:</b>@Html.DisplayFor(modelItem => item.Itm_Num)
+            </td>
+            <td>
+                <b>15:Outdoor:</b>@Html.DisplayFor(modelItem => item.Itm_Num)
+            </td>
+            <td>
+                <b>Haz Y/N or CC or CS:</b>@Html.DisplayFor(modelItem => item.Itm_Num)
+            </td>
+            <td>
+                <b>UPC#:</b>@Html.DisplayFor(modelItem => item.Itm_Num)
+            </td>
+
+        </tr>
+    </table>
+}
+
+

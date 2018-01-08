@@ -1,3 +1,4 @@
 *.config
 *.xlsm
 IMS_V1/Uploads
+.vs/

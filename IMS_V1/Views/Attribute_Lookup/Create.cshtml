@@ -1,0 +1,94 @@
+﻿@model IMS_V1.Attribute_Lookup
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                                    <br />
+                                    <br />
+                                    <table>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <h2>New Attribute Lookup</h2>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:left;">
+                                                Attribute Type: @ViewBag.AttributeType
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.HiddenFor(model => model.AttributeLookup_Id)
+                                                    @Html.HiddenFor(model => model.AttributeType_Id, new { @Value = ViewBag.AttributeType_Id })
+                                                    @Html.LabelFor(model => model.WebsiteAttributeValue):
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.WebsiteAttributeValue)
+                                                    @Html.ValidationMessageFor(model => model.WebsiteAttributeValue)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.LabelFor(model => model.APlusAttributeValue)
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.APlusAttributeValue)
+                                                    @Html.ValidationMessageFor(model => model.APlusAttributeValue)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.LabelFor(model => model.DefaultActualValue)
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.DefaultActualValue)
+                                                    @Html.ValidationMessageFor(model => model.DefaultActualValue)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.LabelFor(model => model.Active)
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="editor-field" style="text-align:left;">
+                                                    @Html.EditorFor(model => model.Active)
+                                                    @Html.ValidationMessageFor(model => model.Active)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <input type="submit" value="Save" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+<div>
+    @Html.ActionLink("Back to List", "Index", new { id = ViewBag.AttributeType_Id })
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

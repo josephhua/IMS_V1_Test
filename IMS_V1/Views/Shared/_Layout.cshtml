@@ -1,0 +1,152 @@
+﻿<html lang="en">
+<head>
+    <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=EmulateIE11" />
+    <title>@ViewBag.Title - Item Management System</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/vue.min.js"></script>
+    <style>
+        Desc1 {
+            background-color: lightgray;
+        }
+
+        Desc2 {
+            background-color: lightblue;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <img src="~/Images/UnitedSportingCompanies_SM.png" />
+            </div>
+            <div class="float-right">
+                <!--                   <section id="login">
+                                        @*Html.Partial("_LoginPartial")*@
+                                        </section>-->
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <!--                            <li>@Html.ActionLink("About", "About", "Home")</li>-->
+
+                        @if (Session.Contents["UserTypeID"] != null)
+                        {
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                        }
+                        @if (Session.Contents["UserTypeID"] == null)
+                        {
+                            <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                            <!--<li>@Html.ActionLink("Download","DownloadExcel","Home")</li>-->
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    @if (Session.Contents["UserTypeID"] != null && Session.Contents["Logout"] != "true")
+    {
+        <div id="body">
+            @if (int.Parse(Session.Contents["UserTypeID"].ToString()) != 1)
+            {
+                <section class="content-wrapper main-content clear-fix">
+                    <ul class="dropdown">
+                        <li>
+                            <a href="~/Item">  Items  </a>
+                        </li>
+                        <li><a href="~/User/Edit">Edit My Profile</a></li>
+                        <li>
+                            <a href="~/ImportedItem">Upload Items</a>
+                        </li>
+                        <li>
+                            <a href="~/UploadFile">Upload Files</a>
+                        </li>
+                        @if (int.Parse(Session.Contents["UserTypeID"].ToString()) == 5)
+    {
+                    <li>
+                        <a href="~/APlusEntry/APlusList">  APlus Entry  </a>
+                    </li>
+}
+                    </ul>
+                </section>
+            }
+            @if (int.Parse(Session.Contents["UserTypeID"].ToString()) == 1)
+            {
+                <section class="content-wrapper main-content clear-fix">
+                    <ul class="dropdownadmin">
+                        <li>
+                            <a href="~/Item">  Items  </a>
+                        </li>
+                        <li>
+                            <a href="~/ABC_Lookup">ABC Lookup</a>
+                        </li>
+                        <li>
+                            <a href="~/AttributeType">Attribute Type</a>
+                        </li>
+                        <li>
+                            <a href="~/CategoryAttribute">Category Attribute</a>
+                        </li>
+                        <li>
+                            <a href="~/FFLType">FFL Type</a>
+                        </li>
+                        <li>
+                            <a href="~/Freight_Lookup">Freight Lookup</a>
+                        </li>
+                        <li>
+                            <a href="~/UM_Lookup">UM Lookup</a>
+                        </li>
+                        <li>
+                            <a href="~/WareHouse_Lookup">Warehouses</a>
+                        </li>
+                        <li>
+                            <a href="~/User">Users</a>
+                        </li>
+                        <li>
+                            <a href="~/UserType">User Type</a>
+                        </li>
+                        <li>
+                            <a href="~/zManufacturersLogo">Vendors</a>
+                        </li>
+                        <li>
+                            <a href="~/ImportedItem">Upload Items</a>
+                        </li>
+                    </ul>
+                </section>
+                <!--            <section class="content-wrapper main-content clear-fix">-->
+                <ul class="dropdown2">
+                    <li>
+                        <a href="~/ItemDescriptionOrder">Attribute Description Order</a>
+                    </li>
+                    <li>
+                        <a href="~/UploadFile">Upload Files</a>
+                    </li>
+                </ul>
+                <!--</section>-->
+            }
+        </div>
+    }
+
+
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-right">
+                <p>&copy; @DateTime.Now.Year - United Sporting Company  <i>All Rights Reserved</i> *Confidential*</p>
+            </div>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

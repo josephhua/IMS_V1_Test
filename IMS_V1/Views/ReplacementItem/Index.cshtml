@@ -1,0 +1,43 @@
+﻿@model IEnumerable<IMS_V1.ReplacementItem>
+<center>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong style="color: black">Replacement Items List</strong><br /><br />
+            @Html.ActionLink("Add New", "Create", new { id = ViewBag.ItemId })
+        </div>
+        <br />
+        <table class="table">
+            <tr>
+                <th>
+                    Replacement Item
+                </th>
+                <th>
+                    Replacement Code
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.existingItm_Num)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.replacementCode)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+</center>
+<br /><br />
+<div>
+    @Html.ActionLink("Back to List", "Index", "Item")
+</div>

@@ -1,0 +1,77 @@
+﻿@model IMS_V1.Freight_Lookup
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<br />
+<br />
+<table style="text-align:center;">
+    <tr>
+        <td colspan="6" style="text-align:center;">
+            <h2>Delete</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <th style="text-align:center;">
+            APlus Class
+        </th>
+        <th>
+            Dot Class
+        </th>
+        <th>
+            Item Class
+        </th>
+        <th>
+            Commodity
+        </th>
+        <th>
+            NMFC Item Number
+        </th>
+        <th>
+            Hazard
+        </th>
+    </tr>
+    <tr>
+
+        <td style="text-align:center;">
+            @Html.DisplayFor(model => model.Freight_APlusClass)
+            @Html.HiddenFor(model => model.Freight_Id)
+        </td>
+        <td style="text-align:left;">
+            @Html.DisplayFor(model => model.Freight_DotClass)
+        </td>
+        <td style="text-align:left;">
+            @Html.DisplayFor(model => model.Freight_ItemClass)
+        </td>
+        <td style="text-align:left;">
+            @Html.DisplayFor(model => model.Freight_Commodity)
+        </td>
+        <td style="text-align:left;">
+            @Html.DisplayFor(model => model.Freight_NMFCItemNumber)
+        </td>
+        <td style="text-align:left;">
+            @Html.DisplayFor(model => model.Freight_Hazard)
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="6">
+            <h3>Are you sure you want to delete this?</h3>
+        </td>
+    <tr>
+        <td colspan="6" style="text-align:center;">
+            @using (Html.BeginForm())
+            {
+                <p>
+                    <input type="submit" value="Delete" />
+                </p>
+            }
+        </td>
+    </tr>
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

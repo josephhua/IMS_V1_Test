@@ -1,0 +1,85 @@
+﻿@model IEnumerable<IMS_V1.ItemDescriptionOrder>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th style="width:75px;">
+            Description Field
+        </th>
+        <th style="width:250px;">
+            Category
+        </th>
+        <th style="width:250px;">
+            SubClass
+        </th>
+        <th style="width:250px;">
+            Fineline
+        </th>
+        <th style="width:75px;">
+            Attribute
+        </th>
+        <th style="width:75px;">
+            System Type
+        </th>
+        <th style="width:50px;">
+            Order Number
+        </th>
+        <th></th>
+    </tr>
+
+    @{var bkc = "whitesmoke";}
+    @foreach (var item in Model)
+    {
+        if (bkc == "whitesmoke")
+        {
+            bkc = "white";
+        }
+        else
+        {
+            bkc = "whitesmoke";
+        }
+        <tr style="background-color:@bkc;">
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.DescriptionField)
+            </td>
+            <td style="text-align:left;">
+                @Html.HiddenFor(modelItem => item.ItemDescriptionOrder_Id)
+                @Html.DisplayFor(modelItem => item.CategoryClass.Category_Id) - @Html.DisplayFor(modelItem => item.CategoryClass.CategoryName)
+            </td>
+            <td style="text-align:left;">
+                @if (item.SubClassCode_Id != null)
+                {
+                    @Html.Label(item.SubClass.SubClass_Id + " - ") @Html.DisplayFor(modelItem => item.SubClass.SubClassName)
+                                    }
+            </td>
+            <td style="text-align:left;">
+                @if (item.FineLineCode_Id != null)
+                {
+                    @Html.Label(item.FineLineClass.FineLine_Id + " - ") @Html.DisplayFor(modelItem => item.FineLineClass.FinelineName)
+                                    }
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.AttributeType.AttributeType1)
+            </td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.SystemType)
+            </td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ItemDescriptionOrder_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ItemDescriptionOrder_Id })
+            </td>
+        </tr>
+    }
+
+</table>

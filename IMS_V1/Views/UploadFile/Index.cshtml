@@ -1,0 +1,72 @@
+﻿@model PagedList.IPagedList<IMS_V1.UploadFile>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Uploaded Files";
+}
+
+<link rel="stylesheet" href="~/Content/theatre.css" type="text/css" />
+
+<h2>Uploaded Files </h2>
+<p>
+    @Html.ActionLink("Upload New File", "Upload")
+</p>
+
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find by file name, upload note, or user name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { currentFilter = ViewBag.CurrentFilter, page, orderType = ViewBag.OrderType }))
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        <center>
+            <table>
+
+                <tr>
+                    <th>
+                        File Name
+                    </th>
+                    <th>
+                        Upload Note
+                    </th>
+                    <th>
+                        Uploaded By
+                    </th>
+                    <th>
+                        Load Date
+                    </th>
+                </tr>
+                @{var bkc = "whitesmoke";}
+    @foreach (var fl in Model)
+    {
+        if (bkc == "whitesmoke")
+        {
+            bkc = "white";
+        }
+        else
+        {
+            bkc = "whitesmoke";
+        }
+                <tr style="background-color:@bkc;">
+                    <td class="display">
+                        @Html.ActionLink(fl.FileName, "DownloadFile", new { fid = fl.File_id })
+                    </td>
+
+                    <td class="display">
+                        @Html.DisplayFor(modelItem => fl.UploadNote)
+                    </td>
+                    <td class="display">
+                        @Html.DisplayFor(modelItem => fl.UserName)
+                    </td>
+                    <td class="display">
+                        @Html.DisplayFor(modelItem => fl.LoadDate)
+                    </td>
+                </tr>
+    }
+            </table>
+        </center>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { currentFilter = ViewBag.CurrentFilter, page, orderType = ViewBag.OrderType }))

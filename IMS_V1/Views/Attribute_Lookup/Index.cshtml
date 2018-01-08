@@ -1,0 +1,68 @@
+﻿@model IEnumerable<IMS_V1.Attribute_Lookup>
+
+@{
+    ViewBag.Title = "Attribute Values";
+}
+
+
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="3" style="text-align:center;">
+            <h2>Attribute Values</h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align:left;">
+            @Html.ActionLink("Create New", "Create", new { id = ViewBag.AttributeType_Id })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align:left;">
+            Attribute Type: @ViewBag.AttributeType
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WebsiteAttributeValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.APlusAttributeValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DefaultActualValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WebsiteAttributeValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.APlusAttributeValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DefaultActualValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AttributeLookup_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AttributeLookup_Id })
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="100" style="text-align:center">
+            @Html.ActionLink("Back to List", "Index", "AttributeType")
+        </td>
+    </tr>
+</table>

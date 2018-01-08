@@ -1,0 +1,72 @@
+﻿@model IEnumerable<IMS_V1.CategoryAttribute>
+
+@{
+    ViewBag.Title = "Category Attributes";
+}
+
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="2" style="text-align:center;">
+            <h2>Categtory Attributes</h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:left;">
+            @Html.ActionLink("Create New Category Attribute", "Create")
+        </td>
+    </tr>
+
+    <tr>
+        <th style="width:250px;">
+            Category
+        </th>
+        <th style="width:250px;">
+            Sub Class
+        </th>
+        <th style="width:250px;">
+            Fineline Class
+        </th>
+        <th style="width:200px;">
+            Attribute
+        </th>
+        <th style="width:75px;">
+            Required
+        </th>
+        <th style="width:125px;"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.CategoryClass.Category_Id) - @Html.DisplayFor(modelItem => item.CategoryClass.CategoryName)
+            </td>
+            <td style="text-align:left;">
+                @if (item.SubClassCode_Id != null)
+                {
+                    @Html.Label(item.SubClass.SubClass_Id + " - ") @Html.DisplayFor(modelItem => item.SubClass.SubClassName)
+                                    }
+            </td>
+            <td style="text-align:left;">
+                @if (item.FineLineCode_Id != null)
+                {
+                    @Html.Label(item.FineLineClass.FineLine_Id + " - ") @Html.DisplayFor(modelItem => item.FineLineClass.FinelineName)
+                                    }
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.AttributeType.AttributeType1)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.Required)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryAttribute_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryAttribute_Id })
+            </td>
+        </tr>
+    }
+
+</table>

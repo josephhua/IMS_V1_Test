@@ -1,0 +1,68 @@
+﻿@model IMS_V1.zManufacturersLogo
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>zManufacturersLogo</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.ManufacturerLogo_Id)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ManufacturerLogo_Id)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.VendorNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VendorNumber)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.APlusVendorName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.APlusVendorName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.LogoName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LogoName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.WebVendorName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WebVendorName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Abbrev)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Abbrev)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.URL)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.URL)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

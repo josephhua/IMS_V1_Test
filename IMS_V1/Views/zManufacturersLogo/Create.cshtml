@@ -1,0 +1,527 @@
+﻿@model IMS_V1.zManufacturersLogo
+
+@{
+    ViewBag.Title = "Create";
+}
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#chkNewVendorAdd').change(newVendorSetTypeChange);
+        $('#chkNewPOVendor').change(pOVendorSetTypeChange);
+        $('#chkChangeVendor').change(changeVendorSetTypeChange);
+        $('#chkDifferentAddrYes').change(changeDifferentAddrYes);
+        $('#chkDifferentAddrNo').change(changeDifferentAddrNo);
+        $('#chkFSAUscYes').change(changeFSAUscYes);
+        $('#chkFSAUscNo').change(changeFSAUscNo);
+        $('#chkCIToUscYes').change(changeCIToUscYes);
+        $('#chkCIToUscNo').change(changeCIToUscNo);
+        $('#chkFFLToUscYes').change(changeFFLToUscYes);
+        $('#chkFFLToUscNo').change(changeFFLToUscNo);
+        $('#chkW9ToUscYes').change(changeW9ToUscYes);
+        $('#chkW9ToUscNo').change(changeW9ToUscNo);
+        $('#chkHazardousYes').change(changeHazardousYes);
+        $('#chkHazardousNo').change(changeHazardousNo);
+        $('#chkMSDSYes').change(changeMSDSYes);
+        $('#chkMSDSNo').change(changeMSDSNo);
+        $("#WebVendorName").blur(function () {
+            wvendorname = $("#WebVendorName").val();
+            $.getJSON("../zManufacturersLogo/StoreWebVendorName", { webvendorname: wvendorname },
+                function (StoreWebVendorName) {
+                    return false;
+                });
+        });
+        if (document.getElementById('chkDifferentAddrYes').checked)
+            document.getElementById('differentPayeeAddr').style.display = 'block';
+        else
+            document.getElementById('differentPayeeAddr').style.display = 'none';
+
+    });
+    function changeMSDSYes() {
+        if (document.getElementById('chkMSDSYes').checked) {
+            document.getElementById('chkMSDSNo').checked = false;
+        }
+    }
+    function changeMSDSNo() {
+        if (document.getElementById('chkMSDSNo').checked) {
+            document.getElementById('chkMSDSYes').checked = false;
+        }
+    }
+    function changeHazardousYes() {
+        if (document.getElementById('chkHazardousYes').checked) {
+            document.getElementById('chkHazardousNo').checked = false;
+        }
+    }
+    function changeHazardousNo() {
+        if (document.getElementById('chkHazardousNo').checked) {
+            document.getElementById('chkHazardousYes').checked = false;
+        }
+    }
+    function changeW9ToUscYes() {
+        if (document.getElementById('chkW9ToUscYes').checked) {
+            document.getElementById('chkW9ToUscNo').checked = false;
+        }
+    }
+    function changeW9ToUscNo() {
+        if (document.getElementById('chkW9ToUscNo').checked) {
+            document.getElementById('chkW9ToUscYes').checked = false;
+        }
+    }
+    function changeFFLToUscYes() {
+        if (document.getElementById('chkFFLToUscYes').checked) {
+            document.getElementById('chkFFLToUscNo').checked = false;
+        }
+    }
+    function changeFFLToUscNo() {
+        if (document.getElementById('chkFFLToUscNo').checked) {
+            document.getElementById('chkFFLToUscYes').checked = false;
+        }
+    }
+    function changeCIToUscYes() {
+        if (document.getElementById('chkCIToUscYes').checked) {
+            document.getElementById('chkCIToUscNo').checked = false;
+        }
+    }
+    function changeCIToUscNo() {
+        if (document.getElementById('chkCIToUscNo').checked) {
+            document.getElementById('chkCIToUscYes').checked = false;
+        }
+    }
+    function changeFSAUscYes() {
+        if (document.getElementById('chkFSAUscYes').checked) {
+            document.getElementById('chkFSAUscNo').checked = false;
+        }
+    }
+    function changeFSAUscNo() {
+        if (document.getElementById('chkFSAUscNo').checked) {
+            document.getElementById('chkFSAUscYes').checked = false;
+        }
+    }
+    function newVendorSetTypeChange() {
+        if (document.getElementById('chkNewVendorAdd').checked) {
+            document.getElementById('chkNewPOVendor').checked = false;
+            document.getElementById('chkChangeVendor').checked = false;
+            document.getElementById('vendorSetupType').innerHTML = "";
+        }
+    }
+    function pOVendorSetTypeChange() {
+        if (document.getElementById('chkNewPOVendor').checked) {
+            document.getElementById('chkNewVendorAdd').checked = false;
+            document.getElementById('chkChangeVendor').checked = false;
+            document.getElementById('vendorSetupType').innerHTML = "";
+        }
+    }
+    function changeVendorSetTypeChange() {
+        if (document.getElementById('chkChangeVendor').checked) {
+            document.getElementById('chkNewVendorAdd').checked = false;
+            document.getElementById('chkNewPOVendor').checked = false;
+            document.getElementById('vendorSetupType').innerHTML = "";
+        }
+    }
+    function changeDifferentAddrYes() {
+        if (document.getElementById('chkDifferentAddrYes').checked) {
+            document.getElementById('chkDifferentAddrNo').checked = false;
+            document.getElementById('differentPayeeAddr').style.display = 'block';
+        }
+        else {
+            document.getElementById('chkDifferentAddrNo').checked = true;
+            document.getElementById('differentPayeeAddr').style.display = 'none';
+        }
+    }
+    function changeDifferentAddrNo() {
+        if (document.getElementById('chkDifferentAddrNo').checked) {
+            document.getElementById('chkDifferentAddrYes').checked = false;
+            document.getElementById('differentPayeeAddr').style.display = 'none';
+        }
+        else {
+            document.getElementById('chkDifferentAddrYes').checked = true;
+            document.getElementById('differentPayeeAddr').style.display = 'block';
+        }
+    }
+    $(function () {
+        $("#txtAbbrev").autocomplete({
+            source: '@Url.Action("GetAbbrevs")',
+            minLength: 1
+        });
+    });
+</script>
+<center>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                                        <br />
+                                        <table width="800px">
+                                            <tr>
+                                                <td colspan="3" style="text-align:center;">
+                                                    <h2>New Vendor Setup</h2>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" name="chkNewVendorAdd" id="chkNewVendorAdd" @(Model.vSetup.VendorSetupType == 1 ? "checked='checked'" : "") />&nbsp;New Vendor Add</td>
+                                                <td>
+                                                    <input type="checkbox" name="chkNewPOVendor" id="chkNewPOVendor" @(Model.vSetup.VendorSetupType == 2 ? "checked='checked'" : "") />&nbsp;New PO Vendor
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" name="chkChangeVendor" id="chkChangeVendor" @(Model.vSetup.VendorSetupType == 3 ? "checked='checked'" : "") />&nbsp;Change Current Vendor
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div style="text-align:center" id="vendorSetupType">@Html.ValidationMessageFor(model => model.vSetup.VendorSetupType)</div>
+                                        <table>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div style="margin-left: -200px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;*If setting up a new vendor, please confirm the "PAYEE" is the same. If not, you must collect the "PAYEE" </div>
+                                                </td>
+                                                <td colspan="2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div>information. If "NEW PO VENDOR" is checked, this indicates an additional vendor for one that exists.&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</div>
+                                                </td>
+                                                <td colspan="2">@Html.ValidationMessageFor(model => model.Enabled)</td>
+                                            </tr>
+                                        </table>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="editor-label">
+                                                        @Html.LabelFor(model => model.VendorNumber):
+                                                    </div>
+                                                </td>
+                                                <td class="textbox">
+                                                    <div class="editor-field">
+                                                        @Html.TextBoxFor(model => model.VendorNumber, new { style = "width:70px;" })
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.LabelFor(model => model.Enabled):
+                                                        @Html.EditorFor(model => model.Enabled)
+                                                        @Html.ValidationMessageFor(model => model.Enabled)
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="editor-label">
+                                                        @Html.LabelFor(model => model.APlusVendorName):@Html.EditorFor(model => model.APlusVendorName)<br />
+                                                        @Html.ValidationMessageFor(model => model.APlusVendorName)
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="editor-field">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="editor-label">
+                                                        @Html.HiddenFor(model => model.ManufacturerLogo_Id)
+                                                        @Html.LabelFor(model => model.LogoName):
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div style="text-align:left">
+                                                        @Html.EditorFor(model => model.LogoName)
+                                                        @Html.ValidationMessageFor(model => model.LogoName)
+                                                    </div>
+                                                </td>
+                                                <td class="textbox">
+                                                    <div class="editor-label">
+                                                        &nbsp;@Html.LabelFor(model => model.WebVendorName):@Html.EditorFor(model => model.WebVendorName)<br />
+                                                        @Html.ValidationMessageFor(model => model.WebVendorName)
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="editor-label">
+                                                        @Html.LabelFor(model => model.URL):&nbsp;
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div style="text-align:left">
+                                                        @Html.EditorFor(model => model.URL)
+                                                        @Html.ValidationMessageFor(model => model.URL)
+                                                    </div>
+                                                </td>
+                                                <td class="textbox">
+                                                    <div style="margin-left:80px">
+                                                        @Html.LabelFor(model => model.Abbrev):&nbsp;@Html.TextBoxFor(model => model.Abbrev, new { id = "txtAbbrev", style = "width:50px;" })<br />
+                                                        @Html.ValidationMessageFor(model => model.Abbrev)
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>@Html.LabelFor(model => model.vSetup.VendorAddr.Addr1):</td>
+                                                <td class="textbox">
+                                                    @Html.TextBoxFor(model => model.vSetup.VendorAddr.Addr1, new { style = "width:100px;" })
+                                                </td>
+                                                <td class="textbox">
+                                                    &nbsp;&nbsp;&nbsp;@Html.LabelFor(model => model.vSetup.VendorAddr.Addr2): @Html.EditorFor(model => model.vSetup.VendorAddr.Addr2)<br />
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Phone: </td>
+                                                <td class="textbox">
+                                                    @Html.TextBoxFor(model => model.vSetup.PhoneFax.Phone, new { style = "width:120px;" })
+                                                    Ext: @Html.TextBoxFor(model => model.vSetup.PhoneFax.PhoneExt, new { style = "width:50px;" })<br />
+                                                    @Html.ValidationMessageFor(model => model.vSetup.PhoneFax.Phone)
+                                                </td>
+                                                <td class="textbox">
+                                                    <div style="margin-left:103px">Fax: @Html.TextBoxFor(model => model.vSetup.PhoneFax.Fax, new { style = "width:120px;" })</div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>@Html.LabelFor(model => model.vSetup.VendorAddr.City): </td>
+                                                <td class="textbox">
+                                                    @Html.TextBoxFor(model => model.vSetup.VendorAddr.City, new { style = "width:120px;" })
+                                                    @Html.LabelFor(model => model.vSetup.VendorAddr.StateId):@Html.DropDownList("vSetup.VendorAddr.StateId", (IEnumerable<SelectListItem>)ViewBag.States, "- Choose State -", new { id = "ddlState", style = "width:150px;" })
+                                                    @Html.ValidationMessageFor(model => model.VendorAddrStateId)
+                                                </td>
+                                                <td class="textbox">
+                                                    <div style="margin-left:25px">@Html.LabelFor(model => model.vSetup.VendorAddr.CountryId): @Html.DropDownList("vSetup.VendorAddr.CountryId", (IEnumerable<SelectListItem>)ViewBag.Countries, "- Choose Country-", new { id = "ddlCountry", style = "width:170px;" })</div>
+                                                    @Html.ValidationMessageFor(model => model.vSetup.VendorAddr.CountryId)
+
+                                                </td>
+                                                <td><div style="margin-left:-105px">@Html.LabelFor(model => model.vSetup.VendorAddr.Zip4):@Html.TextBoxFor(model => model.vSetup.VendorAddr.Zip4, new { style = "width:120px;" })</div></td>
+                                            </tr>
+                                            <tr>
+                                                <td>@Html.LabelFor(model => model.vSetup.ContactName):</td>
+                                                <td class="textbox">
+                                                    @Html.EditorFor(model => model.vSetup.ContactName)<br />
+                                                    @Html.ValidationMessageFor(model => model.vSetup.ContactName)
+                                                </td>
+                                                <td class="textbox">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Html.LabelFor(model => model.vSetup.Comments): @Html.EditorFor(model => model.vSetup.Comments)
+                                                </td>
+                                                <td></td>
+                                            </tr>
+
+                                        </table>
+                                        <div style="margin-left: -500px;margin-top:15px; color: black; font-weight: bold; font-style:italic">
+                                            Different Payee Name/Address: <input type="checkbox" name="chkDifferentAddrYes" id="chkDifferentAddrYes" @(Model.vSetup.DiffPayee.Value ? "checked='checked'" : "" ) />&nbsp;Yes
+                                            <input type="checkbox" name="chkDifferentAddrNo" id="chkDifferentAddrNo" @(Model.vSetup.DiffPayee.Value ? "" : "checked='checked'" ) />&nbsp;No
+                                        </div>
+                                        <div id="differentPayeeAddr" style="display: none;background:white">
+                                            <table width="900">
+                                                <tr>
+                                                    <td>Vendor Number: </td>
+                                                    <td class="textbox">
+                                                        @Html.TextBoxFor(model => model.vSetup.DiffVendorNum, new { style = "width:100px;" }) <br />
+                                                        @Html.ValidationMessageFor(model => model.vSetup.DiffVendorNum)
+                                                    </td>
+                                                    <td>
+                                                        <div style="margin-right: 90px">Vendor Name: @Html.EditorFor(model => model.vSetup.DiffVendorName)</div>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PO Box(ADDR1):</td>
+                                                    <td class="textbox">
+                                                        @Html.TextBoxFor(model => model.vSetup.DiffAddr.Addr1, new { style = "width:100px;" })
+                                                    </td>
+                                                    <td class="textbox">
+                                                        <div style="margin-left:57px">Street 1(ADDR2): @Html.EditorFor(model => model.vSetup.DiffAddr.Addr2)</div>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Phone: </td>
+                                                    <td class="textbox">
+                                                        @Html.TextBoxFor(model => model.vSetup.DiffPhoneFax.Phone, new { style = "width:120px;" })
+                                                        Ext: @Html.TextBoxFor(model => model.vSetup.DiffPhoneFax.PhoneExt, new { style = "width:50px;" })
+                                                    </td>
+                                                    <td class="textbox">
+                                                        <div style="margin-left:149px">Fax: @Html.TextBoxFor(model => model.vSetup.DiffPhoneFax.Fax, new { style = "width:120px;" })</div>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>City: </td>
+                                                    <td class="textbox">
+                                                        @Html.TextBoxFor(model => model.vSetup.DiffAddr.City, new { style = "width:120px;" })
+                                                        State:@Html.DropDownList("vSetup.DiffAddr.StateId", (IEnumerable<SelectListItem>)ViewBag.States, "- Choose State -", new { id = "ddlState", style = "width:150px;" })
+                                                        @Html.ValidationMessageFor(model => model.vSetup.VendorAddr.StateId)
+                                                    </td>
+                                                    <td class="textbox">
+                                                        <div style="margin-left:25px">Country: @Html.DropDownList("vSetup.DiffAddr.CountryId", (IEnumerable<SelectListItem>)ViewBag.Countries, "- Choose Country-", new { id = "ddldCountry", style = "width:170px;" })</div>
+                                                        @Html.ValidationMessageFor(model => model.vSetup.DiffAddr.CountryId)
+
+                                                    </td>
+                                                    <td><div style="margin-left:-175px">Zip+4:@Html.TextBoxFor(model => model.vSetup.DiffAddr.Zip4, new { style = "width:120px;" })&nbsp;&nbsp;</div></td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                        <div style="margin-left:-350px">
+                                            <table>
+                                                <tr>
+                                                    <td><Strong>Ship Via</Strong> (Carrier)</td>
+                                                    <td>
+                                                        <div style="margin-left: 10px">
+                                                            Freight Company:  @Html.EditorFor(model => model.vSetup.FreightCompany)
+                                                            &nbsp;&nbsp;Include UPS <input type="checkbox" name="chkIncludeUPS" id="chkIncludeUPS" ) />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div style="margin-left: -200px; margin-top: -10px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <div style="margin-right:100px">
+                                                            FOB: Origin <input type="checkbox" name="chkOrigin" id="chkOrigin" ) /> or Destination
+                                                            <input type="checkbox" name="chkDestination" id="chkDestination" ) />
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        @Html.LabelFor(model => model.vSetup.FreightTerms): @Html.TextBoxFor(model => model.vSetup.FreightTerms)
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+
+                                        </div>
+                                        <div style="margin-top: -10px;margin-right: 40px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        @Html.LabelFor(model => model.vSetup.MinValue): @Html.TextBoxFor(model => model.vSetup.MinValue, new { style = "width:120px;" })&nbsp;&nbsp;
+                                                    </td>
+                                                    <td>
+                                                        @Html.LabelFor(model => model.vSetup.MinUnits): @Html.TextBoxFor(model => model.vSetup.MinUnits, new { style = "width:120px;" })&nbsp;&nbsp;
+                                                    </td>
+                                                    <td> @Html.LabelFor(model => model.vSetup.MinWeight): @Html.TextBoxFor(model => model.vSetup.MinWeight, new { style = "width:120px;" })&nbsp;&nbsp;</td>
+                                                    <td> @Html.LabelFor(model => model.vSetup.MinSize): @Html.TextBoxFor(model => model.vSetup.MinSize, new { style = "width:120px;" })</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div style="margin-top: -10px;margin-right: 180px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        @Html.LabelFor(model => model.vSetup.CO_OPPercent): @Html.TextBoxFor(model => model.vSetup.CO_OPPercent, new { style = "width:120px;" })&nbsp;&nbsp;
+                                                    </td>
+                                                    <td>
+                                                        @Html.LabelFor(model => model.vSetup.VendorLeadTime): @Html.TextBoxFor(model => model.vSetup.VendorLeadTime, new { style = "width:120px;" })&nbsp;&nbsp;
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <div style="margin-left: -200px;margin-top: -25px;">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+                                                                @Html.LabelFor(model => model.vSetup.PTDscPercent) @Html.TextBoxFor(model => model.vSetup.PTDscPercent, new { style = "width:120px;" })&nbsp;&nbsp;
+                                                                <br />@Html.ValidationMessageFor(model => model.vSetup.PTDscPercent)
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                @Html.LabelFor(model => model.vSetup.PTDscDays) @Html.TextBoxFor(model => model.vSetup.PTDscDays, new { style = "width:120px;" })&nbsp;&nbsp;
+                                                                <br /> @Html.ValidationMessageFor(model => model.vSetup.PTDscDays)
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="margin-top: 10px">
+                                                                @Html.LabelFor(model => model.vSetup.PTPayDays) @Html.TextBoxFor(model => model.vSetup.PTPayDays, new { style = "width:120px;" })<br />
+                                                                <br />@Html.ValidationMessageFor(model => model.vSetup.PTPayDays)
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div style="color:black;margin-left: -370px;margin-top: -10px">@Html.LabelFor(model => model.vSetup.FSAUsc) Yes <input type="checkbox" name="chkFSAUscYes" id="chkFSAUscYes" @(Model.vSetup.FSAUsc.Value ? "checked='checked'" : "") />&nbsp;&nbsp;No <input type="checkbox" name="chkFSAUscNo" id="chkFSAUscNo" @(Model.vSetup.FSAUsc.Value ? "" : "checked='checked'") /></div>
+                                            <div style="color:black;margin-left: -420px;margin-top: 10px">@Html.LabelFor(model => model.vSetup.CIToUsc) Yes <input type="checkbox" name="chkCIToUscYes" id="chkCIToUscYes" @(Model.vSetup.CIToUsc.Value ? "checked='checked'" : "") />&nbsp;&nbsp;No <input type="checkbox" name="chkCIToUscNo" id="chkCIToUscNo" @(Model.vSetup.CIToUsc.Value ? "" : "checked='checked'") /></div>
+                                            <div style="color:black;margin-left: -465px;margin-top: 10px">@Html.LabelFor(model => model.vSetup.FFLToUsc) Yes <input type="checkbox" name="chkFFLToUscYes" id="chkFFLToUscYes" @(Model.vSetup.FFLToUsc.Value ? "checked='checked'" : "") />&nbsp;&nbsp;No <input type="checkbox" name="chkFFLToUscNo" id="chkFFLToUscNo" @(Model.vSetup.FFLToUsc.Value ? "" : "checked='checked'") /></div>
+                                            <div style="color:black;margin-left: -465px;margin-top: 10px">@Html.LabelFor(model => model.vSetup.W9ToUsc) Yes <input type="checkbox" name="chkW9ToUscYes" id="chkW9ToUscYes" @(Model.vSetup.W9ToUsc.Value ? "checked='checked'" : "") />&nbsp;&nbsp;No <input type="checkbox" name="chkW9ToUscNo" id="chkW9ToUscNo" @(Model.vSetup.W9ToUsc.Value ? "" : "checked='checked'") /></div>
+                                            <div style="color:black;margin-left: -450px;margin-top: 10px">@Html.LabelFor(model => model.vSetup.Hazardous) Yes <input type="checkbox" name="chkHazardousYes" id="chkHazardousYes" @(Model.vSetup.Hazardous.Value ? "checked='checked'" : "") />&nbsp;&nbsp;No <input type="checkbox" name="chkHazardousNo" id="chkHazardousNo" @(Model.vSetup.Hazardous.Value ? "" : "checked='checked'") /></div>
+                                            <div style="color:black;margin-left: -210px;margin-top: 10px">@Html.LabelFor(model => model.vSetup.MSDS) Yes <input type="checkbox" name="chkMSDSYes" id="chkMSDSYes" @(Model.vSetup.MSDS.Value ? "checked='checked'" : "" ) />&nbsp;&nbsp;No <input type="checkbox" name="chkMSDSNo" id="chkMSDSNo" @(Model.vSetup.MSDS.Value ? "" : "checked='checked'") /></div>
+                                            <div></div>
+                                        </div>
+                                        <div style="margin: 10px 0px 0px 0px"><hr /></div>
+                                        <table width="100%">
+                                            <tr>
+                                                <td>@Html.LabelFor(model => model.vSetup.AcctContactName):</td>
+                                                <td class="textbox">
+                                                    @Html.EditorFor(model => model.vSetup.AcctContactName)
+                                                </td>
+                                                <td class="textbox">
+                                                    @Html.LabelFor(model => model.vSetup.AcctComments): @Html.EditorFor(model => model.vSetup.AcctComments)
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                        <div style="width: 85%;text-align: left; color: black;margin-top: 10px; margin-bottom: -10px"><strong>Vendor IT Contact for EDI:</strong></div>
+                                        <table width="95%">
+                                            <tr>
+                                                <td>
+                                                    @Html.LabelFor(model => model.vSetup.ITContact.Name): @Html.EditorFor(model => model.vSetup.ITContact.Name)
+                                                </td>
+                                                <td>
+                                                    @Html.LabelFor(model => model.vSetup.ITContact.Phone): @Html.TextBoxFor(model => model.vSetup.ITContact.Phone, new { style = "width:170px;" })
+                                                </td>
+                                                <td>
+                                                    @Html.LabelFor(model => model.vSetup.ITContact.Email): @Html.EditorFor(model => model.vSetup.ITContact.Email)
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div style="width: 85%;text-align: left; color: black;margin-top: 10px; margin-bottom: -10px"><strong>Vendor Customer Service Contact for EDI:</strong></div>
+                                        <table width="95%">
+                                            <tr>
+                                                <td>
+                                                    @Html.LabelFor(model => model.vSetup.CSContact.Name): @Html.EditorFor(model => model.vSetup.CSContact.Name)
+                                                </td>
+                                                <td>
+                                                    @Html.LabelFor(model => model.vSetup.CSContact.Phone): @Html.TextBoxFor(model => model.vSetup.CSContact.Phone, new { style = "width:170px;" })
+                                                </td>
+                                                <td>
+                                                    @Html.LabelFor(model => model.vSetup.CSContact.Email): @Html.EditorFor(model => model.vSetup.CSContact.Email)<br />
+                                                    @Html.ValidationMessageFor(model => model.vSetup.CSContact.Email)
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div style="width: 85%;text-align: left; color: black;margin-top: 10px; margin-bottom: -10px;margin-left: 80px"><strong>Vendor Accounting Contact for EDI:</strong></div>
+                                        <table width="95%">
+                                            <tr>
+                                                <td>
+                                                    @Html.LabelFor(model => model.vSetup.ACContact.Name): @Html.EditorFor(model => model.vSetup.ACContact.Name)
+                                                </td>
+                                                <td>
+                                                    @Html.LabelFor(model => model.vSetup.ACContact.Phone): @Html.TextBoxFor(model => model.vSetup.ACContact.Phone, new { style = "width:170px;" })
+                                                </td>
+                                                <td>
+                                                    @Html.LabelFor(model => model.vSetup.ACContact.Email): @Html.EditorFor(model => model.vSetup.ACContact.Email)<br />
+                                                    @Html.ValidationMessageFor(model => model.vSetup.ACContact.Email)
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table width="100%" style="text-align:center">
+                                            <tr>
+                                                <td></td>
+                                                <td colspan="2" style="text-align:center;">
+                                                    <input type="submit" value="Save" />
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    }
+</center>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

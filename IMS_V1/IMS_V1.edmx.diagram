@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e14bf84d6cde4763b67f9e72fb231984" Name="Diagram1">
+        <EntityTypeShape EntityType="IMS_V1.ABC_Lookup" Width="1.5" PointX="6.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.APlusItem" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.Attribute_Lookup" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.AttributeType" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.Buyer" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.CategoryAttribute" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.CategoryClass" Width="1.5" PointX="0.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.Country" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.FFLType" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.FineLineClass" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.Freight_Lookup" Width="1.5" PointX="6.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.ImportedItem" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.ImportFile" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.ItemDescriptionOrder" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.Item" Width="1.5" PointX="9" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.ItemTextAttachment" Width="1.5" PointX="11.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.ItemWareHous" Width="1.5" PointX="14.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.PrintedItemsForAPlu" Width="1.5" PointX="11.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.ReplacementItem" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.ReplacementItemCode" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.StateProvince" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.SubClass" Width="1.5" PointX="0.75" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.UM_Lookup" Width="1.5" PointX="6.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.UserType" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.VendorEdiContact" Width="1.5" PointX="13.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.VendorPhoneFax" Width="1.5" PointX="13.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.VendorSetup" Width="1.5" PointX="16.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.VendorSetupAddr" Width="1.5" PointX="2.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.VendorTradeName" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.WareHouse_Lookup" Width="1.5" PointX="12" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.WebCode" Width="1.5" PointX="6.75" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.zManufacturersLogo" Width="1.5" PointX="6.75" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="IMS_V1.zManufacturersLogo_History" Width="1.5" PointX="9" PointY="27.625" IsExpanded="true" />
+        <AssociationConnector Association="IMS_V1.FK_Items_ABC_Lookup" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Attribute_Lookup_AttributeType" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_CategoryAttributes_AttributeType" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_ItemDescriptionOrder_AttributeType" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_CategoryAttributes_CategoryClass" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_CategoryAttributes_FineLineClass" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_CategoryAttributes_SubClass" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_ItemDescriptionOrder_CategoryClass" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Items_CategoryClass" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.StateProvince_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Items_FFLType" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_ItemDescriptionOrder_FineLineClass" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_ItemDescriptionOrder_FineLineClass1" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Items_FineLineClass" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Items_Freight_Lookup" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_ItemDescriptionOrder_SubClass" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Items_SubClass" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Items_UM_Lookup" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Items_WebCodes" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Items_zManufacturersLogo" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_ItemTextAttachments" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_ItemWareHouses_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_PrintedItemsForAPlus_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_ItemWareHouses_WareHouse_Lookup" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_Users_UserTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="IMS_V1.FK_zManufacturersLogo_History_zManufacturersLogo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="IMS_V1.ItemAttribute" Width="1.5" PointX="14.25" PointY="9" />
+        <AssociationConnector Association="IMS_V1.FK_ItemAttributes_Attribute_Lookup" />
+        <AssociationConnector Association="IMS_V1.FK_ItemAttributes_Items" />
+        <EntityTypeShape EntityType="IMS_V1.UploadFile" Width="1.5" PointX="19.375" PointY="3.75" />
+        <EntityTypeShape EntityType="IMS_V1.emailList" Width="1.5" PointX="19.375" PointY="6.75" />
+        <EntityTypeShape EntityType="IMS_V1.UsefulImage" Width="1.5" PointX="19.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,62 @@
+﻿@model IMS_V1.Attribute_Lookup
+
+@{
+    ViewBag.Title = "Delete";
+}
+<br />
+<br />
+<table style="text-align:center;">
+    <tr>
+        <td colspan="4" style="text-align:center;">
+            <h2>Delete Attribute Lookup</h2>
+        </td>
+    </tr>
+    <tr>
+        <th style="text-align:center;">
+            Attribute Type
+        </th>
+        <th>
+            WebSite Attribute Value
+        </th>
+        <th>
+            APlus Attribute Value
+        </th>
+        <th>
+            Default Attribute Value
+        </th>
+    </tr>
+    <tr>
+
+        <td style="text-align:center;">
+            @Html.DisplayFor(model => model.AttributeType.AttributeType1)
+            @Html.HiddenFor(model => model.AttributeLookup_Id)
+        </td>
+        <td style="text-align:left;">
+            @Html.DisplayFor(model => model.WebsiteAttributeValue)
+        </td>
+        <td style="text-align:left;">
+            @Html.DisplayFor(model => model.APlusAttributeValue)
+        </td>
+        <td style="text-align:left;">
+            @Html.DisplayFor(model => model.DefaultActualValue)
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="4">
+            <h3>Are you sure you want to delete this?</h3>
+        </td>
+    <tr>
+        <td colspan="4" style="text-align:center;">
+            @using (Html.BeginForm())
+            {
+                <p>
+                    <input type="submit" value="Delete" />
+                </p>
+            }
+        </td>
+    </tr>
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", new { id = Model.AttributeType_Id }, null)
+</div>

@@ -1,0 +1,115 @@
+﻿@model IMS_V1.User
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+
+                                    <br />
+                                    <br />
+                                    <table>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <h2>New User</h2>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    First Name:
+                                                </div>
+                                            </td>
+                                            <td class="textbox">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.FirstName)
+                                                    @Html.ValidationMessageFor(model => model.FirstName)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    Last Name:
+                                                </div>
+                                            </td>
+                                            <td class="textbox">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.LastName)
+                                                    @Html.ValidationMessageFor(model => model.LastName)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.HiddenFor(model => model.User_id)
+                                                    User Name:
+                                                </div>
+                                            </td>
+                                            <td class="textbox">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.UserName)
+                                                    @Html.ValidationMessageFor(model => model.UserName)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    Password:
+                                                </div>
+                                            </td>
+                                            <td class="textbox">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Password)
+                                                    @Html.ValidationMessageFor(model => model.Password)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    User Type:
+                                                </div>
+                                            </td>
+                                            <td class="textbox">
+                                                <div class="editor-field">
+                                                    @Html.DropDownList("UserType_Id", String.Empty)
+                                                    @Html.ValidationMessageFor(model => model.UserType_Id)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    Email Address:
+                                                </div>
+                                            </td>
+                                            <td class="textbox">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.EmailAddress)
+                                                    @Html.ValidationMessageFor(model => model.EmailAddress)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <input type="submit" value="Create" />
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

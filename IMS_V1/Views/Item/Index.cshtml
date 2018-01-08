@@ -1,0 +1,123 @@
+﻿@model PagedList.IPagedList<IMS_V1.Item>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Items List";
+}
+<style>
+    .CAIFButton {
+        position: absolute;
+        right: 13cm;
+    }
+
+    .APlusImportMsg {
+        position: absolute;
+        right: 12cm;
+        top: 8cm;
+    }
+</style>
+<h2>Items List</h2>
+<link rel="stylesheet" href="~/Content/theatre.css" type="text/css" />
+
+<p>
+    @Html.ActionLink("Add New Item", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { currentFilter = ViewBag.CurrentFilter, page, orderType = ViewBag.OrderType }))
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<table>
+   
+    <tr>
+        <th>
+            Item Number
+        </th>
+        <th>
+            Vendor Name
+        </th>
+        <th>
+            Item Description
+        </th>
+        <th>
+            VI Cost
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Buyer
+        </th>
+        <th>
+            MFG.Number
+        </th>
+    </tr>
+    @{var bkc = "whitesmoke";}
+    @foreach (var item in Model)
+    {
+        if (bkc == "whitesmoke")
+        {
+            bkc = "white";
+        }
+        else
+        {
+            bkc = "whitesmoke";
+        }
+        <tr style="background-color:@bkc;">
+            <td class="display">
+                @if (item.Printed == "Y")
+                {
+                    <span>(P)</span>
+                }
+                @Html.DisplayFor(modelItem => item.Itm_Num)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.zManufacturersLogo.APlusVendorName)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.Item_Description)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.VICost)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.CategoryClass.CategoryName)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.Buyer)
+            </td>
+            <td class="display">
+                @Html.DisplayFor(modelItem => item.MFG_Number)
+            </td>
+        </tr>
+        <tr style="background-color:@bkc;">
+            <td style="font-size:.70em;text-align:center" colspan="7">
+                @Html.ActionLink("Copy New", "CopyNew", new { id = item.Item_id, userid = ViewBag.userid })
+                @if (int.Parse(Session.Contents["UserTypeID"].ToString()) == 6)
+                {
+                    @Html.ActionLink("Edit", "VendorEdit", new { id = item.Item_id })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Item_id })
+                                                        }
+                @Html.ActionLink("Delete", "Delete", new { id = item.Item_id })
+                @Html.ActionLink("Attributes", "Index", "ItemAttribute", new { id = item.Item_id }, null)
+                @if (int.Parse(Session.Contents["UserTypeID"].ToString()) == 7 || int.Parse(Session.Contents["UserTypeID"].ToString()) == 8 || int.Parse(Session.Contents["UserTypeID"].ToString()) == 1)
+                {
+                    @Html.ActionLink("Text Attachment", "Index", "ItemTextAttachment", new { itemid = item.Item_id }, null)
+                                    }
+
+            </td>
+        </tr>
+    }
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { currentFilter = ViewBag.CurrentFilter, page, orderType = ViewBag.OrderType }))

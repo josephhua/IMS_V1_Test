@@ -1,0 +1,90 @@
+﻿@model IMS_V1.ItemDescriptionOrder
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<br />
+<br />
+<table style="text-align:center;">
+    <tr>
+        <td style="text-align:center;" colspan="2">
+            <h2>Delete</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Category
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.CategoryClass_Id) - @Html.DisplayFor(model => model.CategoryClass.CategoryName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            SubClass
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubClassCode_Id) - @Html.DisplayFor(model => model.SubClass.SubClassName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            FineLine
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.FineLineCode_Id) - @Html.DisplayFor(model => model.FineLineClass.FinelineName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Attribute Type
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.AttributeType.AttributeType1)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Description
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.DescriptionField)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            System Type
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SystemType)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Order Number
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.OrderNumber)
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">
+            <h3>Are you sure you want to delete this?</h3>
+        </td>
+    <tr>
+        <td style="text-align:center;">
+            @using (Html.BeginForm())
+            {
+                <p>
+                    <input type="submit" value="Delete" />
+                </p>
+            }
+        </td>
+    </tr>
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

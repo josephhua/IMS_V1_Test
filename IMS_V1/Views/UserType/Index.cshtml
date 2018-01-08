@@ -1,0 +1,50 @@
+﻿@model IEnumerable<IMS_V1.UserType>
+
+@{
+    ViewBag.Title = "User Types";
+}
+
+
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="2" style="text-align:center;">
+            <h2>User Type</h2>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td colspan="2" style="text-align:left;">
+            @Html.ActionLink("Create New User Type", "Create")
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            User Type
+        </th>
+        <th>
+            Enabled
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.UserTypeDescription)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserType_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserType_id })
+            </td>
+        </tr>
+    }
+
+</table>

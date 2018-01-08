@@ -1,0 +1,53 @@
+﻿@model IMS_V1.UploadFile
+
+
+@{
+    ViewBag.Title = "Uploaded File";
+}
+
+<link rel="stylesheet" href="~/Content/theatre.css" type="text/css" />
+
+<h2>Upload File </h2>
+<center>
+    @using (Html.BeginForm("SaveUpload",
+                        "UploadFile",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+    {
+        <br />
+        <table>
+            <tr>
+                <td> <span class="lblred">*</span><label for="file">Upload File:</label></td>
+                <td><input type="file" name="file" id="file" style="width: 350px" /><br />
+                    <span>
+                        @Html.ValidationMessageFor(model => model.FileName)
+                    </span></td>
+            </tr>
+            <tr>
+                <td><label>Upload Note: </label></td>
+                <td>
+                    @Html.TextBoxFor(model => model.UploadNote, new { style = "width:350px;" })
+                                <span>
+                                    @Html.ValidationMessageFor(model => model.UploadNote)
+                                </span>
+                </td>
+            </tr>
+        </table>
+        <br />
+        
+    
+    <br><br>
+    <input type="submit" value="Upload" />
+    <br><br>
+    @ViewBag.Message
+
+    }
+
+</center>
+
+<p>
+    @Html.ActionLink("Uploaded Files", "Index")
+</p>
+
+
+

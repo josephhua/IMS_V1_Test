@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Upload</h2><br /><br />
+<center>
+    @using (Html.BeginForm("SaveUpload",
+                            "ImportedItem",
+                            FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+    {
+        <label for="file">Upload file:</label>
+        <input type="file" name="file" id="file" /><br><br>
+        <input type="submit" value="Upload" />
+        <br><br>
+        @ViewBag.Message
+                    }
+</center>
+<div>
+    @Html.ActionLink("Create items from my imports ", "ImportItems")
+</div>

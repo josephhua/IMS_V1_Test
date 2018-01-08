@@ -1,0 +1,149 @@
+﻿@model IMS_V1.ItemAttribute
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script type="text/javascript">
+    $(document).unbind('keydown').bind('keydown', function (event) {
+        var doPrevent = false;
+        if (event.keyCode === 8) {
+            var d = event.srcElement || event.target;
+            if ((d.tagName.toUpperCase() === 'INPUT' &&
+                (
+                    d.type.toUpperCase() === 'TEXT' ||
+                    d.type.toUpperCase() === 'PASSWORD' ||
+                    d.type.toUpperCase() === 'FILE' ||
+                    d.type.toUpperCase() === 'SEARCH' ||
+                    d.type.toUpperCase() === 'EMAIL' ||
+                    d.type.toUpperCase() === 'NUMBER' ||
+                    d.type.toUpperCase() === 'DATE')
+            ) ||
+                d.tagName.toUpperCase() === 'TEXTAREA') {
+                doPrevent = d.readOnly || d.disabled;
+            }
+            else {
+                doPrevent = true;
+            }
+        }
+        if (doPrevent) {
+            event.preventDefault();
+        }
+    });
+    $(document).ready(function () {
+        $("#ddlAttributeType").change(function () {
+            var AttributeTypeId = $(this).val();
+            $.getJSON("../ItemAttribute/LoadAttributeLookup", { attributetypeid: AttributeTypeId },
+                function (AttributeLookupData) {
+                    var select = $("#ddlAttributeLookup");
+                    select.empty();
+                    select.append($('<option/>', {
+                        value: 0,
+                        text: "Select a Attribute Value"
+                    }));
+                    $.each(AttributeLookupData, function (index, itemData) {
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                });
+        });
+        var changeAttribute = $("#ddlAttributeLookup").change(function () {
+            var AttributeLookup_Id = $(this).val();
+            $.getJSON("../ItemAttribute/LoadAttributeInfo", { Aid: AttributeLookup_Id },
+                function (AttributeData) {
+                    $("#APlusValue").val(AttributeData.APlusAttributeValue);
+                    $("#DefaultValue").val(AttributeData.DefaultActualValue);
+                }).fail(function (xhr, textStatus, errorThrown) { alert(xhr.responseText); });
+        });
+    });
+</script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                                    <table>
+                                        <tr>
+                                            <td colspan="2" style="text-align:left">
+                                                @Html.HiddenFor(model => model.ItemAttribute_Id)
+                                                @Html.HiddenFor(model => model.Item_Id)
+
+                                                <b>Item Number:</b> @ViewBag.Itm_num
+                                                <br />
+                                                <b>Item Description:</b> @ViewBag.ItemDescription
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Attribute Type:
+                                            </td>
+                                            <td>
+                                                @Html.DropDownList("AttributeType_Id", (IEnumerable<SelectListItem>)ViewBag.AttributeType, "- - - S E L E C T - - -", new { id = "ddlAttributeType", style = "width:350px;" })
+                                                @Html.ValidationMessageFor(model => model.ItemAttribute_Id)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Website Attribute Value:
+                                            </td>
+                                            <td style="text-align:left" class="textbox">
+                                                @Html.DropDownList("AttributeLookup_Id", (IEnumerable<SelectListItem>)ViewBag.AttributeLookup, "- - - S E L E C T - - -", new { id = "ddlAttributeLookup", style = "width:350px;" })
+                                            </td>
+                                        </tr>
+                                        <!--        <tr>
+                                                    <td>
+                                                        APlus Attribute Value:
+                                                    </td>
+                                                    <td style="text-align:left" class="textbox">
+                                                       @*Html.TextBox("APlusValue","",  new { @readonly = "readonly", style = "width:120px;"})*@
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Default Attribute Value:
+                                                    </td>
+                                                    <td style="text-align:left" class="textbox">
+                                                       @*Html.TextBox("DefaultValue","",  new { @readonly = "readonly", style = "width:120px;"})*@
+                                                    </td>
+                                                </tr>-->
+
+                                        <tr>
+                                            <td>
+                                                Actual Attribute Value:
+                                            </td>
+                                            <td style="text-align:left" class="textbox">
+                                                @Html.EditorFor(model => model.ActualAttributeValue)
+                                                @Html.ValidationMessageFor(model => model.ActualAttributeValue)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center" colspan="2">
+                                                @if (int.Parse(Session.Contents["UserTypeID"].ToString()) != 6)
+                                                {
+                                                    <input type="submit" value="Save" />
+                                                }
+                                                else
+                                                {
+                                                    if (ViewBag.Printed != "Y")
+                                                    {
+                                                        <input type="submit" value="Save" />
+                                                    }
+                                                }
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index", new { id = ViewBag.Item_Id })
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

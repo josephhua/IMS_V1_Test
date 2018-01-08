@@ -1,0 +1,75 @@
+﻿@model IMS_V1.AttributeType
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+                    <br />
+                    <br />
+                    <table>
+                        <tr>
+                            <td colspan="2" style="text-align:center;">
+                                <h2>Edit</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;">
+                                <div class="editor-label">
+                                    @Html.HiddenFor(model => model.AttributeType_Id)
+                                    Attribute:
+                                </div>
+                            </td>
+                            <td style="text-align:left;">
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.AttributeType1)
+                                    @Html.ValidationMessageFor(model => model.AttributeType1)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;">
+                                <div class="editor-label">
+                                    Range:
+                                </div>
+                            </td>
+                            <td style="text-align:left;">
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Range)
+                                    @Html.ValidationMessageFor(model => model.Range)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Enabled):
+                                </div>
+                            </td>
+                            <td style="text-align:left;">
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Enabled)
+                                    @Html.ValidationMessageFor(model => model.Enabled)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align:center;">
+                                <p>
+                                    <input type="submit" value="Save" />
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

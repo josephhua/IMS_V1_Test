@@ -1,0 +1,62 @@
+﻿@model IMS_V1.UserType
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                                    <br />
+                                    <br />
+                                    <table>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <h2>New User Type</h2>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.HiddenFor(model => model.UserType_id)
+                                                    User Type:
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.UserTypeDescription)
+                                                    @Html.ValidationMessageFor(model => model.UserTypeDescription)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.LabelFor(model => model.Enabled)
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Enabled)
+                                                    @Html.ValidationMessageFor(model => model.Enabled)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <input type="submit" value="Save" />
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                }
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

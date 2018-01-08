@@ -1,0 +1,52 @@
+﻿@model IEnumerable<IMS_V1.WareHouse_Lookup>
+
+@{
+    ViewBag.Title = "Warehouses";
+}
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="3" style="text-align:center;">
+            <h2>WareHouses</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3" style="text-align:left;">
+            @Html.ActionLink("Create New Warehouse", "Create")
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Warehouse Number
+        </th>
+        <th>
+            Warehouse Name
+        </th>
+        <th>
+            Active
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.WareHouseNumber)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.WareHouseName)
+            </td>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.WareHouse_id })
+                @*Html.ActionLink("Delete", "Delete", new {  id=item.WareHouse_id })*@
+            </td>
+        </tr>
+    }
+
+</table>

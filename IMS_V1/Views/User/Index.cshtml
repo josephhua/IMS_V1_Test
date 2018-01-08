@@ -1,0 +1,64 @@
+﻿@model IEnumerable<IMS_V1.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="6" style="text-align:center;">
+            <h2>Users</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="6" style="text-align:left;">
+            @Html.ActionLink("Create New User", "Create")
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserType.UserTypeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.UserType.UserTypeDescription)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.User_id })
+            </td>
+        </tr>
+    }
+
+</table>

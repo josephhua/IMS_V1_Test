@@ -1,0 +1,136 @@
+﻿@model IMS_V1.CategoryAttribute
+
+@{
+    ViewBag.Title = "Edit";
+}
+<script type="text/javascript">
+
+     $(document).ready(function () {
+         var changeSubClass = $("#ddlCategory").change(function () {
+             var categoryclassId = $(this).val();
+             $.getJSON("../LoadSubClassesByCategoryId", { categoryclassid: categoryclassId },
+             function (SubClassData) {
+                 var select = $("#ddlSubClasses");
+                 select.empty();
+                 select.append($('<option/>', {
+                     value: 0,
+                     text: "Select a SubClass"
+                 }));
+                 $.each(SubClassData, function (index, itemData) {
+                     select.append($('<option/>', {
+                         value: itemData.Value,
+                         text: itemData.Text
+                     }));
+                 });
+             }).fail(function (xhr, textStatus, errorThrown) { alert(xhr.responseText); });
+         });
+         var changeFineLineClass = $("#ddlSubClasses").change(function () {
+             var subclassId = $(this).val();
+             var categoryId = $("#ddlCategory").val();
+             $.getJSON("../LoadFineLineClassesByCateogryIdSubClassId", { categoryclassid: categoryId, subclasscodeid: subclassId },
+                    function (FineLineData) {
+                        var select = $("#ddlFineLine");
+                        select.empty();
+                        select.append($('<option/>', {
+                            value: 0,
+                            text: "Select a FineLine"
+                        }));
+                        $.each(FineLineData, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                    }).fail(function (xhr, textStatus, errorThrown) { alert(xhr.responseText); });
+         });
+     });
+</script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                                    <br />
+                                    <br />
+                                    <table>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <h2>Edit Category Attribute</h2>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.HiddenFor(model => model.CategoryAttribute_Id)
+                                                    Category:
+                                                </div>
+                                            </td>
+                                            <td class="textbox">
+                                                @*Html.DropDownList("CategoryClass_Id",String.Empty)*@
+                                                @*Html.ValidationMessageFor(model => model.CategoryClass_Id)  *@
+                                                @Html.DropDownList("CategoryClass_Id", (IEnumerable<SelectListItem>)ViewBag.CategoryClass, "- - - S E L E C T - - -", new { id = "ddlCategory", style = "width:350px;" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                SubClass:
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.DropDownList("SubClassCode_Id", (IEnumerable<SelectListItem>)ViewBag.SubClass, "- - - S E L E C T - - -", new { id = "ddlSubClasses", style = "width:350px;" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                FineLine:
+                                            </td>
+                                            <td class="textbox">
+                                                @Html.DropDownList("FineLineCode_Id", (IEnumerable<SelectListItem>)ViewBag.FineLineClass, "- - - S E L E C T - - -", new { id = "ddlFineLine", style = "width:350px;" })
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.LabelFor(model => model.AttributeType_Id, "AttributeType")
+
+                                                </div>
+                                            </td>
+                                            <td style="text-align:left;">
+                                                <div class="editor-field">
+                                                    @Html.DropDownList("AttributeType_Id", String.Empty)
+                                                    @Html.ValidationMessageFor(model => model.AttributeType_Id)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-label">
+                                                    @Html.LabelFor(model => model.Required)
+                                                </div>
+                                            </td>
+                                            <td style="text-align:left;">
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.Required)
+                                                    @Html.ValidationMessageFor(model => model.Required)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <input type="submit" value="Save" />
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

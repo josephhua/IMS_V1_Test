@@ -1,0 +1,54 @@
+﻿@model IEnumerable<IMS_V1.FFLType>
+
+@{
+    ViewBag.Title = "FFL Types";
+}
+
+
+<br />
+<br />
+<table>
+    <tr>
+        <td colspan="3" style="text-align:center;">
+            <h2>FFL Types</h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align:left;">
+            @Html.ActionLink("Create New FFL Type", "Create")
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FFLType_Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FFLType_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.FFLType_Code)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.FFLType_Description)
+            </td>
+            <td style="text-align:left;">
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.FFLType_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.FFLType_Id })
+            </td>
+        </tr>
+    }
+
+</table>
